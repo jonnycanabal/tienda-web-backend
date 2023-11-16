@@ -6,6 +6,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
 import jakarta.persistence.PrePersist;
@@ -18,6 +20,7 @@ import jakarta.persistence.TemporalType;
 public class Producto {
 	
 	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
 	private String nombre;
@@ -94,5 +97,26 @@ public class Producto {
 	public void setFoto(byte[] foto) {
 		this.foto = foto;
 	}
+
+	//vamos a sobreescribir el metodo equals
+	//Este metodo es importante para eliminar un objeto de la relacion
+	@Override
+	public boolean equals(Object obj) {
+		
+		if(this == obj) {
+			return true;
+		}
+		//validar que los objetos sean instancia de producto
+		if(!(obj instanceof Producto)) {
+			return false;
+		}
+		
+		//ahora necesitamos comparar los ID y se necesita hacer un cash del tipo producto
+		Producto p = (Producto) obj;
+		
+		return this.id != null && this.id.equals(p.getId());
+	}
+	
+
 	
 }

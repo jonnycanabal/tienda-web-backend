@@ -1,15 +1,19 @@
 package com.tienda.web.app.models.entity;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
@@ -25,7 +29,11 @@ public class Marca {
 	
 	private String nombre;
 	
-	//private String producto;
+	//Relacion con la tabla productos "una marca puede tener muchos productos"
+	// con el fetch realiza la consulta
+	//Se usa Lazy que es una carga peresosa,se realiza la consulta pero con esto se cargaron los datos solamente cuando se intente acceder a ellos.
+	@OneToMany(fetch = FetchType.LAZY)
+	private List<Producto> productos;
 	
 	@Column(name = "create_at")//Con Column le damos un nombre diferente en nuestra tabla de la base de datos
 	@Temporal(TemporalType.TIMESTAMP)  //con esta anotacion hacemos que nuestra fecha sea completa con fecha y hora
@@ -49,6 +57,11 @@ public class Marca {
 	public Integer getFotoHashCode() {
 		//retorna un identificador unico
 		return (this.foto != null) ? this.foto.hashCode(): null;
+	}
+	//*************** QUEDE AQUI ***********
+	//Contructor para inicializar variables en este caso productos
+	public Marca() {
+		this.productos = new ArrayList<>();
 	}
 	
 	public Long getId() {
@@ -82,6 +95,23 @@ public class Marca {
 	public void setFoto(byte[] foto) {
 		this.foto = foto;
 	}
+
+	public List<Producto> getProductos() {
+		return productos;
+	}
+
+	public void setProductos(List<Producto> productos) {
+		this.productos = productos;
+	}
 	
+	//metodo para agregar productos 1 a 1
+	//tambien se debe crear la instancia de prouductos ya que no esta definido, este se debe hacer en el contructor para inicializar.
+	public void addProducto(Producto producto) {
+		this.productos.add(producto);
+	}
 	
+	//metodo para eliminar producto de la marca
+	public void removeProducto(Producto producto) {
+		this.productos.remove(producto);
+	}
 }

@@ -31,7 +31,7 @@ public class ProductoController {
 	@Autowired
 	private ProductoService service;
 	
-	@GetMapping("/producto")
+	@GetMapping("/productos")
 	public ResponseEntity<?> listar(){
 		
 		return ResponseEntity.ok().body(service.finAll());
@@ -100,7 +100,8 @@ public class ProductoController {
 	}
 	
 	@PostMapping("/producto/crear-con-foto")
-	public ResponseEntity<?> crearConFoto(@Valid Producto producto,BindingResult result, @RequestParam MultipartFile archivo) throws IOException{
+	public ResponseEntity<?> crearConFoto(@Valid Producto producto, BindingResult result, @RequestParam MultipartFile archivo) 
+			throws IOException{
 		
 		if(!archivo.isEmpty()) {
 			producto.setFoto(archivo.getBytes());
