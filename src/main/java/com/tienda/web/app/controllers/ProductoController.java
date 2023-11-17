@@ -110,7 +110,7 @@ public class ProductoController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(service.save(producto));
 	}
 	
-	@PutMapping("/producto/editar-con-foto")
+	@PutMapping("/producto/editar-con-foto/{id}")
 	public ResponseEntity<?> editarConFoto(@Valid Producto producto, BindingResult result, @PathVariable Long id, 
 			@RequestParam MultipartFile archivo) throws IOException{
 		

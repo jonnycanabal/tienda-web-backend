@@ -174,12 +174,12 @@ public class MarcaController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(service.save(marcaDb));
 	}
 	
-	@PutMapping("marca/eliminar-producto")
+	@PutMapping("/marca/{id}/eliminar-producto")
 	//aqui no se pasara una lista, si no que se pasa el producto
-	public ResponseEntity<?> eliminarProducto(@RequestBody Producto producto, @PathVariable Long Id){
+	public ResponseEntity<?> eliminarProducto(@RequestBody Producto producto, @PathVariable("id") Long Id){
 		Optional<Marca> o = service.finbyId(Id);
 		
-		if(o.isEmpty()) {
+		if(!o.isPresent()) {
 			return ResponseEntity.notFound().build();
 		}
 		
