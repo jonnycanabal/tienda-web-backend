@@ -25,7 +25,7 @@ import com.tienda.web.app.models.entity.Marca;
 import com.tienda.web.app.models.entity.Producto;
 import com.tienda.web.app.services.MarcaService;
 
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 
 /*@RestController, devuelve los datos en formato Json y sirve para manejar respuesta HTTP y 
 tambien hacer las anotacion con los get, post, put, delet a una url determinada.*/

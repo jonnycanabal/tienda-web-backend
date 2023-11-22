@@ -23,7 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.tienda.web.app.models.entity.Producto;
 import com.tienda.web.app.services.ProductoService;
 
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 
 @RestController
 public class ProductoController {
