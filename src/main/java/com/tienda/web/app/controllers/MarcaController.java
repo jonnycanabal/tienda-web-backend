@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -30,6 +31,7 @@ import javax.validation.Valid;
 /*@RestController, devuelve los datos en formato Json y sirve para manejar respuesta HTTP y 
 tambien hacer las anotacion con los get, post, put, delet a una url determinada.*/
 @RestController
+@RequestMapping("/marca")
 public class MarcaController {
 
 	//Recordar importar la interfaz ya que es un tipo generico el cual se crea. ya que va ser la misma y comun.
@@ -37,14 +39,14 @@ public class MarcaController {
 	private MarcaService service;
 	
 	// dar una ruta Url a la pedicion que se va a dar en este caso Get.
-	@GetMapping("/marcas")
+	@GetMapping
 	public ResponseEntity<?> listar(){
 		
 		//se pasa al cuerpo (body)de la respuseta una linda de entity.
 		return ResponseEntity.ok().body(service.finAll());
 	}
 	
-	@GetMapping("/marca/ver/{id}")
+	@GetMapping("/ver/{id}")
 	//El PathVariable se usa para extraer valores de variables a nuestra URL y mapearlos al parametro del metodo.
 	public ResponseEntity<?> ver(@PathVariable Long id){
 		
@@ -59,7 +61,7 @@ public class MarcaController {
 		return ResponseEntity.ok().body(o.get());
 	}
 	
-	@PostMapping("/marca/crear")
+	@PostMapping("/crear")
 	//se utiliza el RequestBody ya que necesitamos agregar la Marca la cual viene del Request, del cuerpo (body)
 	public ResponseEntity<?> crear(@RequestBody Marca marca){
 		//Se almacena el alumno creado en una variable la cual se pasara al cuerpo de la respuesta.
@@ -67,7 +69,7 @@ public class MarcaController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(marcaDb);
 	}
 	
-	@PutMapping("/marca/editar/{id}")
+	@PutMapping("/editar/{id}")
 	//se agregar la marca y el id para asi referencia lo que se va a editar.
 	public ResponseEntity<?> editar(@RequestBody Marca marca, @PathVariable Long id){
 		//primero buscamos la marca en la Base de Datos
@@ -87,7 +89,7 @@ public class MarcaController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(service.save(marcaDb));
 	}
 	
-	@DeleteMapping("/marca/eliminar/{id}")
+	@DeleteMapping("/eliminar/{id}")
 	public ResponseEntity<?> eliminar(@PathVariable Long id){
 		service.deleteById(id);
 		
@@ -98,7 +100,7 @@ public class MarcaController {
 												/* Controlador de foto*/
 	
 	//metodo en el controlador para ver la imagen
-	@GetMapping("/marca/uploads/img/{id}")
+	@GetMapping("/uploads/img/{id}")
 	public ResponseEntity<?>verFoto(@PathVariable Long id){
 		Optional<Marca> o = service.finbyId(id);
 		
@@ -114,7 +116,7 @@ public class MarcaController {
 		return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(imagen);
 	}
 	
-	@PostMapping("/marca/crear-con-foto")
+	@PostMapping("/crear-con-foto")
 	//se debe agregar un MultiparFile con la imagen
 	public ResponseEntity<?> crearConFoto(@Valid Marca marca, BindingResult result, @RequestParam MultipartFile archivo) 
 			throws IOException{
@@ -127,7 +129,7 @@ public class MarcaController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(service.save(marca));
 	}
 	
-	@PutMapping("/marca/editar-con-foto/{id}")
+	@PutMapping("/editar-con-foto/{id}")
 	public ResponseEntity<?> editarConFoto(@Valid Marca marca, BindingResult result, @PathVariable Long id, 
 			@RequestParam MultipartFile archivo) throws IOException{
 
@@ -152,7 +154,7 @@ public class MarcaController {
 								/* Controlador para asignar "Producto a la Marca"*/
 	
 	//metodo para asigar productos a la marca
-	@PutMapping("/marca/{id}/asignar-productos")
+	@PutMapping("/{id}/asignar-productos")
 	//Se debe de obtener el Id de la tienda y pasar al body un arreglo de productos(List).
 	public ResponseEntity<?> asignarProducto(@RequestBody List<Producto> productos, @PathVariable Long id){
 		//primero debemos de buscar el Marca
@@ -174,7 +176,7 @@ public class MarcaController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(service.save(marcaDb));
 	}
 	
-	@PutMapping("/marca/{id}/eliminar-producto")
+	@PutMapping("/{id}/eliminar-producto")
 	//aqui no se pasara una lista, si no que se pasa el producto
 	public ResponseEntity<?> eliminarProducto(@RequestBody Producto producto, @PathVariable("id") Long Id){
 		Optional<Marca> o = service.finbyId(Id);

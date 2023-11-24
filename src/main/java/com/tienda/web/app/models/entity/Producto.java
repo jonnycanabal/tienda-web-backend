@@ -1,6 +1,8 @@
 package com.tienda.web.app.models.entity;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
@@ -11,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
@@ -27,13 +30,17 @@ public class Producto {
 	
 	private String nombre;
 	
+	private Integer cantidad;
+	
+	private Integer precio;
+	
 	@ManyToOne
 	@JoinColumn(name = "marca_id")
 	private Marca marca;
 	
-	private Integer cantidad;
-	
-	private Integer precio;
+	//Esta anotacion no es necesaria debido a que como es una relacion ManyToMany es bidireccional y ya esta establecida en Carrito
+	@ManyToMany(mappedBy = "productos")
+	private Set<Carrito> carritos = new HashSet<>();
 	
 	@Column(name = "creat_at")
 	@Temporal(TemporalType.TIMESTAMP)
@@ -120,7 +127,21 @@ public class Producto {
 		
 		return this.id != null && this.id.equals(p.getId());
 	}
-	
 
+	public Marca getMarca() {
+		return marca;
+	}
+
+	public void setMarca(Marca marca) {
+		this.marca = marca;
+	}
+
+	public Set<Carrito> getCarritos() {
+		return carritos;
+	}
+
+	public void setCarritos(Set<Carrito> carritos) {
+		this.carritos = carritos;
+	}
 	
 }

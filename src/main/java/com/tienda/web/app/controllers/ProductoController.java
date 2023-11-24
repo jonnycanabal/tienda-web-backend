@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,18 +27,19 @@ import com.tienda.web.app.services.ProductoService;
 import javax.validation.Valid;
 
 @RestController
+@RequestMapping("/producto")
 public class ProductoController {
 	
 	@Autowired
 	private ProductoService service;
 	
-	@GetMapping("/productos")
+	@GetMapping
 	public ResponseEntity<?> listar(){
 		
 		return ResponseEntity.ok().body(service.finAll());
 	}
 	
-	@GetMapping("/producto/ver/{id}")
+	@GetMapping("/ver/{id}")
 	public ResponseEntity<?> ver(@PathVariable Long id){
 		
 		Optional<Producto> p = service.finById(id);
@@ -49,7 +51,7 @@ public class ProductoController {
 		return ResponseEntity.ok().body(p.get());
 	}
 	
-	@PostMapping("/producto/crear")
+	@PostMapping("/crear")
 	public ResponseEntity<?> crear(@RequestBody Producto producto){
 		
 		Producto productoDb = service.save(producto);
@@ -57,7 +59,7 @@ public class ProductoController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(productoDb);
 	}
 	
-	@PutMapping("/producto/editar/{id}")
+	@PutMapping("/editar/{id}")
 	public ResponseEntity<?> editar(@RequestBody Producto producto, @PathVariable Long id){
 		
 		Optional<Producto> p = service.finById(id);
@@ -75,7 +77,7 @@ public class ProductoController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(service.save(productoDb));
 	}
 	
-	@DeleteMapping("/producto/elimiar/{id}")
+	@DeleteMapping("/elimiar/{id}")
 	public ResponseEntity<?> eliminar(@PathVariable Long id){
 		service.deleteById(id);
 		
@@ -85,7 +87,7 @@ public class ProductoController {
 	/* - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 												/* Controlador de foto*/
 	
-	@GetMapping("/producto/uploads/img/{id}")
+	@GetMapping("/uploads/img/{id}")
 	public ResponseEntity<?> verFoto(@PathVariable Long id){
 		
 		Optional<Producto> p = service.finById(id);
@@ -99,7 +101,7 @@ public class ProductoController {
 		return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(imagen);
 	}
 	
-	@PostMapping("/producto/crear-con-foto")
+	@PostMapping("/crear-con-foto")
 	public ResponseEntity<?> crearConFoto(@Valid Producto producto, BindingResult result, @RequestParam MultipartFile archivo) 
 			throws IOException{
 		
@@ -110,7 +112,7 @@ public class ProductoController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(service.save(producto));
 	}
 	
-	@PutMapping("/producto/editar-con-foto/{id}")
+	@PutMapping("/editar-con-foto/{id}")
 	public ResponseEntity<?> editarConFoto(@Valid Producto producto, BindingResult result, @PathVariable Long id, 
 			@RequestParam MultipartFile archivo) throws IOException{
 		
