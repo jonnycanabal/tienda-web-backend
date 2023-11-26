@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -13,6 +14,7 @@ import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+
 
 @Entity
 @Table(name = "usuarios")
@@ -33,7 +35,7 @@ public class Usuario {
 	private String correo;
 	
 	//mappedBy se utiliza para indicar que la relación está mapeada por el campo usuario en la entidad Carrito
-	@OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL)
+	@OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Carrito carrito;
 	
 	@Column(name = "create_at")

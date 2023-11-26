@@ -18,12 +18,16 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "carritos")
 public class Carrito {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@Column(name = "create_at")
@@ -32,9 +36,11 @@ public class Carrito {
 	
 	@OneToOne
 	@JoinColumn(name = "usuario_id")
+	@JsonManagedReference
 	private Usuario usuario;
 	
 	@ManyToMany
+	@JsonBackReference
 	@JoinTable(
 			name = "carrito_producto",
 			joinColumns = @JoinColumn(name = "carrito_id"),
