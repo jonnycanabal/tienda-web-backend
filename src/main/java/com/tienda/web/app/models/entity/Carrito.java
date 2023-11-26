@@ -20,6 +20,7 @@ import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -36,11 +37,10 @@ public class Carrito {
 	
 	@OneToOne
 	@JoinColumn(name = "usuario_id")
-	@JsonManagedReference
+	@JsonIgnoreProperties("carrito")//Esta anotacion ayuda a evitar bucles infinitos con la inforamcion al convertirla a JSON
 	private Usuario usuario;
 	
 	@ManyToMany
-	@JsonBackReference
 	@JoinTable(
 			name = "carrito_producto",
 			joinColumns = @JoinColumn(name = "carrito_id"),

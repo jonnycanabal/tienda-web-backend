@@ -15,6 +15,9 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 
 @Entity
 @Table(name = "usuarios")
@@ -36,6 +39,7 @@ public class Usuario {
 	
 	//mappedBy se utiliza para indicar que la relación está mapeada por el campo usuario en la entidad Carrito
 	@OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JsonIgnoreProperties("usuario")//Esta anotacion ayuda a evitar bucles infinitos con la inforamcion al convertirla a JSON
 	private Carrito carrito;
 	
 	@Column(name = "create_at")
