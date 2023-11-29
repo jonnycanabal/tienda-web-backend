@@ -16,14 +16,12 @@ public class ProductoServiceImplement implements ProductoService {
 	private ProductoRepository repository;
 	
 	@Override
-	@Transactional(readOnly = true)
 	public Iterable<Producto> finAll() {
 		
 		return repository.findAll();
 	}
 
 	@Override
-	@Transactional(readOnly = true)
 	public Optional<Producto> finById(Long id) {
 		
 		return repository.findById(id);

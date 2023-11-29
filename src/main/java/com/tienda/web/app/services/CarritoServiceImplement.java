@@ -16,13 +16,11 @@ public class CarritoServiceImplement implements CarritoService {
 	private CarritoRepository repository;
 	
 	@Override
-	@Transactional(readOnly = true)
 	public Iterable<Carrito> finAll() {
 		return repository.findAll();
 	}
 
 	@Override
-	@Transactional(readOnly = true)
 	public Optional<Carrito> finById(Long id) {
 		return repository.findById(id);
 	}
