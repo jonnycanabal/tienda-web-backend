@@ -61,7 +61,12 @@ public class CarritoController {
 		Carrito carritodb = o.get();
 		
 		carritodb.setProductos(carrito.getProductos());
-		carritodb.setUsuario(carrito.getUsuario());
+		
+		if(carrito.getUsuario() != null) {
+			carritodb.setUsuario(carrito.getUsuario());
+		}else {
+			carritodb.setUsuario(null);
+		}
 		
 		return ResponseEntity.status(HttpStatus.CREATED).body(service.save(carritodb));
 	}
@@ -74,5 +79,4 @@ public class CarritoController {
 		return ResponseEntity.noContent().build();
 	}
 	
-	//TENGO QUE AGREGAR LOS CONTROLLER PARA AGREGAR PRODUCTOS AL CARRITO Y USAURIO AL CARRITO
 }

@@ -18,12 +18,17 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 @Entity
 @Table(name = "carritos")
 public class Carrito {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@Column(name = "create_at")
@@ -32,6 +37,7 @@ public class Carrito {
 	
 	@OneToOne
 	@JoinColumn(name = "usuario_id")
+	@JsonIgnoreProperties("carrito")//Esta anotacion ayuda a evitar bucles infinitos con la inforamcion al convertirla a JSON
 	private Usuario usuario;
 	
 	@ManyToMany

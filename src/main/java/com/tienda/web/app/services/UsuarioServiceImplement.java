@@ -16,13 +16,11 @@ public class UsuarioServiceImplement implements UsuarioService {
 	private UsuarioRepository repository;
 	
 	@Override
-	@Transactional(readOnly = true)
 	public Iterable<Usuario> finAll() {
 		return repository.findAll();
 	}
 
 	@Override
-	@Transactional(readOnly = true)
 	public Optional<Usuario> finById(Long id) {
 		return repository.findById(id);
 	}

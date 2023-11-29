@@ -19,13 +19,11 @@ public class MarcaServiceImplement implements MarcaService {
 	private MarcaRepository repository;
 	
 	@Override
-	@Transactional(readOnly = true)
 	public Iterable<Marca> finAll() {
 		return repository.findAll();
 	}
 
 	@Override
-	@Transactional(readOnly = true)
 	public Optional<Marca> finbyId(Long id) {
 		return repository.findById(id);
 	}
