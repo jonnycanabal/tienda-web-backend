@@ -76,7 +76,9 @@ public class CarritoController {
 			carritodb.setUsuario(null);
 		}
 		
-		return ResponseEntity.status(HttpStatus.CREATED).body(service.save(carritodb));
+		Carrito carritoActualizado = service.save(carritodb);
+		
+		return ResponseEntity.status(HttpStatus.CREATED).body(service.save(carritoActualizado));
 	}
 	
 	@DeleteMapping("eliminar/{id}")
