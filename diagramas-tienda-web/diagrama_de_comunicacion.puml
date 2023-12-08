@@ -1,0 +1,21 @@
+@startuml tienda-web
+
+object Usuario
+object Producto
+object Carrito
+object ItemCarrito
+
+    ItemCarrito : Producto
+    ItemCarrito : Cantidad
+
+
+Usuario --|> Producto : BuscaElProducto
+
+Producto --|> Usuario: EncuentraElProducto
+
+Usuario -> Carrito: AgregaElProducto
+
+Carrito -> ItemCarrito : Relaciona
+
+
+@enduml

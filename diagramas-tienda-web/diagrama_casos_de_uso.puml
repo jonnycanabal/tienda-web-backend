@@ -1,0 +1,20 @@
+@startuml tienda-web
+
+left to right direction
+actor "Usuario" as user
+
+rectangle tienda-web {
+    usecase "ingresa" as uc1
+    usecase "Busca" as uc2
+    usecase "Selecciona" as uc3
+    usecase "Agrega al Carrito" as uc4
+    usecase "compra" as uc5
+}
+
+user --> uc1
+user --> uc2
+user --> uc3
+user --> uc4
+user --> uc5
+
+@enduml

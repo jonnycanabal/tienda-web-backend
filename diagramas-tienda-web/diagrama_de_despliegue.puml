@@ -1,0 +1,40 @@
+@startuml tienda-web
+
+Actor Usuario 
+
+node "Cliente" as Cli{
+    component "Interfaz de Usuario" as Interfaz
+    component "Buscador(Navegador)" as Buscador
+    component "Framework Angular" as Angular
+}
+
+node "Servidor Web" as SW {
+    component "Aplicativo Web" as Aplicativo
+    component "Framework Java - Spring" as Spring
+}
+
+node "Servidor Aplicaciones" as SA {
+    component "Servidor Web" as Servidor_Web
+    component "Base de Datos" as Base_Datos
+}
+
+node "Base de datos" as BD{
+    component "Motor de Base de Datos H2" as H2
+}
+
+
+Interfaz --|> Buscador
+Buscador --|> Angular
+
+Aplicativo --|> Spring
+
+Servidor_Web -- Base_Datos
+
+SA -- SW
+SA -- BD
+
+SW -- Cli
+
+Cli -- Usuario
+
+@enduml

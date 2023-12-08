@@ -1,0 +1,47 @@
+@startuml tienda-web
+
+object usuario{
+    id = 1
+    primerNombre = Jonny
+    segundoNombre = Mauricio
+    primerApellido = Canabal
+    segundoApellido = Ospina
+    celular = 3183861122
+    correo =jmco@gmail.com
+}
+object producto1 {
+    id = 1
+    nombre = Tenis Adizero
+    precio = 1500000
+}
+object producto2{
+    id = 2
+    nombre = Tenis SuperStar
+    precio = 700000
+}
+object carrito{
+    id = 1
+    usuario_id
+    item = [
+        {
+        producto_id
+        cantidad
+        },
+        producto_id
+        cantdiad
+    ]
+
+}
+object itemCarrito{
+    id = 1
+    carrito_id
+    producto_id
+    cantidad
+}
+
+usuario -> carrito: tiene
+carrito -> itemCarrito: contiene
+itemCarrito -> producto1: tiene
+itemCarrito -> producto2: tiene
+
+@enduml

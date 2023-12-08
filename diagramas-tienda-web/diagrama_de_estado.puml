@@ -1,0 +1,31 @@
+@startuml tienda-web
+
+state Pedido {
+
+[*] --> Aplicativo : Inicio
+
+    Aplicativo : Buscar
+    Aplicativo : Seleccionar
+    Aplicativo : Editar
+    Aplicativo : Ingresar al carrito
+    Aplicativo : Confirmar
+
+state Confirmado
+    Confirmado : Pedido (productos)
+
+state Enviado
+    Enviado : Pedido (Enviado)
+
+state Entregado
+
+    Entregado : Pedido (Entregado)
+
+
+Aplicativo --> Confirmado
+Confirmado -->Enviado
+Enviado -->Entregado
+Entregado -->[*] : Fin
+
+}
+
+@enduml
