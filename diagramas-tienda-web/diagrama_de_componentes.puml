@@ -1,0 +1,28 @@
+@startuml tienda-web
+
+[Usuario] as usuario
+
+package "Aplicativo - Tienda Web" as tienda_web {
+
+    [Producto] as producto
+    [Carrito] as carrito 
+    [ItemCarrito] as itemCarrito 
+
+}
+
+database BaseDeDatos as db {
+    [Base de Datos]
+}
+
+usuario -> tienda_web : Consulta/Actualiza/Elimina
+
+usuario -> carrito : pedido
+
+carrito -> itemCarrito : Pedido del Usuario
+itemCarrito -> producto : producto y cantidad
+
+
+tienda_web -> db : Almacena/Actualiza/Elimina/RetornaInformacion
+
+
+@enduml

@@ -1,0 +1,92 @@
+@startuml tienda-web
+
+Usuario "1" *-- "1" Carrito
+Carrito "many" *-- "many" Producto
+ItemCarrito "many" *-- "1" Carrito
+ItemCarrito "many" *-- "1" Producto 
+
+Class Usuario {
+    - Long id
+    - String primerNombre
+    - String segundoNombre
+    - String primerApellido
+    - String segundoApellido
+    - Long celular
+    - String correo
+    - Carrito carrito
+    - Date createAt
+
+    + listarUsuario()
+    + verUsuario()
+    + crearUsuario()
+    + editarUsuario()
+    + eliminarUsuario()
+
+    ' + Long getId()
+    ' + void setId(Long id)
+    ' + String getPrimerNombre()
+    ' + void setPrimerNombre()
+    ' + String getSegundoNombre()
+    ' + void setSegundoNombre()
+    ' + String getPrimerApellido()
+    ' + void setPrimerApllido()
+    ' + String getSegundoApellido()
+    ' + void setSegundoApellido()
+    ' + Long getCelular()
+    ' + void setCelular()
+    ' + String getCorreo()
+    ' + void setCorreo()
+    ' + Carrito getCarrito()
+    ' + void setCarrito()
+    ' + Date getCreateAt()
+    ' + void setCreateAt()
+}
+
+class Producto{
+    - Long id
+    - String nombre
+    - Int cantidad
+    - Long precio
+    - set <Carrito> carritos
+    - Date fecha
+
+    + listarProducto()
+    + verProducto()
+    + crearProducto()
+    + editarProducto()
+    + eliminarProducto()
+}
+
+class Carrito{
+    - Long id
+    - Usuario usuario
+    - set <Producto> productos
+    - set <ItemCarrito> items
+    - Date fecha
+    
+    + listarCarrito()
+    + verCarrito()
+    + crearCarrito()
+    + editarCarrito()
+    + eliminarCarrito()
+    + agregarProducto()
+    + editarProducto()
+    + eliminarProducto()
+    + agregarCantidad()
+    + editarCantidad()
+}
+
+class ItemCarrito {
+    -Long id
+    - Carrito carrito
+    - Producto producto
+    - Int cantidad
+
+    + listarItemCarrito()
+    + verItemCarrito()
+    + crearItemCarrito()
+    + editarItemCarrito()
+    + eliminarItemCarrito()
+}
+
+@enduml

@@ -1,0 +1,19 @@
+@startuml tienda-web
+start
+
+:Usuario;
+:Ingresar Al Aplicativo;
+:Buscar Producto;
+    repeat
+    if (Producto Disponible) then (No)
+        :Volver a "Buscar Producto";
+    else (Si)
+    :Agregar Producto;
+    if (Agregar Otro Producto) then (Si)
+    else(No)
+:Finalizar Pedido;
+:Realizar Envio;
+:Entrega;
+
+stop
+@enduml

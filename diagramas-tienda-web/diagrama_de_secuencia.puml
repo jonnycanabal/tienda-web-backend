@@ -1,0 +1,24 @@
+@startuml tienda-web
+
+actor Usuario
+
+participant Producto
+participant Carrito
+participant ItemCarrito
+
+Usuario -> Producto: Busca el producto
+activate Producto
+
+Producto -> Usuario : Encuentra el producto
+activate Producto
+
+Usuario -> Carrito: Agrega producto al carrito
+activate Carrito
+
+Carrito -> ItemCarrito: Establece relación
+activate ItemCarrito
+
+Carrito -> Usuario : Realiza la compra
+activate Carrito
+
+@enduml
