@@ -1,6 +1,8 @@
 package com.tienda.web.app.controllers;
 
+
 import java.util.Optional;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -44,9 +46,15 @@ public class CarritoController {
 	@PostMapping("/crear")
 	public ResponseEntity<?> crear(@RequestBody Carrito carrito){
 		
-		Carrito carritodb = service.save(carrito);
+		if(carrito.getUsuario() == null || carrito.getProductos().isEmpty()) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No hay usuario y/o productos");
+		}
 		
-		return ResponseEntity.status(HttpStatus.CREATED).body(carritodb);
+		carrito.getItems().forEach(item -> item.setCarrito(carrito));
+		
+		Carrito carritoNuevo = service.save(carrito);
+		
+		return ResponseEntity.status(HttpStatus.CREATED).body(carritoNuevo);
 	}
 	
 	@PutMapping("/editar/{id}")
@@ -68,7 +76,9 @@ public class CarritoController {
 			carritodb.setUsuario(null);
 		}
 		
-		return ResponseEntity.status(HttpStatus.CREATED).body(service.save(carritodb));
+		Carrito carritoActualizado = service.save(carritodb);
+		
+		return ResponseEntity.status(HttpStatus.CREATED).body(service.save(carritoActualizado));
 	}
 	
 	@DeleteMapping("eliminar/{id}")

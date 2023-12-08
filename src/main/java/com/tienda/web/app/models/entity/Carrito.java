@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,16 +13,16 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 
 @Entity
 @Table(name = "carritos")
@@ -47,6 +48,10 @@ public class Carrito {
 			inverseJoinColumns = @JoinColumn(name = "producto_id"))
 	private Set<Producto> productos = new HashSet<>();
 
+	@OneToMany(mappedBy = "carrito", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonManagedReference
+	private Set<ItemCarrito> items = new HashSet<>();
+	
 	@PrePersist
 	public void prePersist() {
 		this.creatAt = new Date();
@@ -82,6 +87,14 @@ public class Carrito {
 
 	public void setProductos(Set<Producto> productos) {
 		this.productos = productos;
+	}
+
+	public Set<ItemCarrito> getItems() {
+		return items;
+	}
+
+	public void setItems(Set<ItemCarrito> items) {
+		this.items = items;
 	}
 	
 }

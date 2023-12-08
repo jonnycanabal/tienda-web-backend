@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -43,6 +42,7 @@ public class Producto {
 	//Esta anotacion no es necesaria debido a que como es una relacion ManyToMany es bidireccional y ya esta establecida en Carrito
 	@ManyToMany(mappedBy = "productos")
 	@JsonIgnoreProperties("productos")//Esta anotacion ayuda a evitar bucles infinitos con la inforamcion al convertirla a JSON
+	@JsonIgnore
 	private Set<Carrito> carritos = new HashSet<>();
 	
 	@Column(name = "creat_at")
