@@ -88,7 +88,8 @@ public class CarritoServiceImplement implements CarritoService {
 		for (ItemCarrito item : carrito.getItems()) {
 			contenidoStream.newLineAtOffset(0, -15);
 			contenidoStream.showText("- " + item.getProducto().getNombre() +
-					", Precio: " + item.getProducto().getPrecio());
+					", Precio: " + item.getProducto().getPrecio() + ", cantidad: " + 
+					item.getCantidad());
 			
 		}
 		
