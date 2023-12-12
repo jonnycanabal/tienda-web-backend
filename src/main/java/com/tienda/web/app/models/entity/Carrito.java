@@ -57,6 +57,11 @@ public class Carrito {
 		this.creatAt = new Date();
 	}
 	
+	//Metodo para calcular el total de los prodcutos del carrito
+	public double total() {
+		return items.stream().mapToDouble(item -> item.getProducto().getPrecio()* item.getCantidad()).sum();
+	}
+	
 	public Long getId() {
 		return id;
 	}
