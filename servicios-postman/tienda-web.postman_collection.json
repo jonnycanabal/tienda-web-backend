@@ -1,0 +1,657 @@
+{
+	"info": {
+		"_postman_id": "f86f790a-8558-4c4b-8f10-723ace96066c",
+		"name": "tienda-web",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21757319"
+	},
+	"item": [
+		{
+			"name": "Usuario",
+			"item": [
+				{
+					"name": "Listar Usuarios",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/usuario",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"usuario"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ver usuario por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/usuario/ver/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"usuario",
+								"ver",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Usuario",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"primerNombre\": \"Karen\",\r\n    \"segundoNombre\": \"\",\r\n    \"primerApellido\": \"Rubiano\",\r\n    \"segundoApellido\": \"Torres\",\r\n    \"celular\": 3184568585,\r\n    \"correo\": \"krn@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/usuario/crear",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"usuario",
+								"crear"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Editar Usuario por ID",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"celular\": 3183852266\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/usuario/editar/3",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"usuario",
+								"editar",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar usuario por ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/usuario/eliminar/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"usuario",
+								"eliminar",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Producto",
+			"item": [
+				{
+					"name": "Listar Productos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/producto",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"producto"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ver producto por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/producto/ver/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"producto",
+								"ver",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear producto con foto",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "nombre",
+									"value": "Zapatillas Gucci Run Hombre",
+									"type": "text"
+								},
+								{
+									"key": "cantidad",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "precio",
+									"value": "4000000",
+									"type": "text"
+								},
+								{
+									"key": "marca",
+									"value": "Gucci",
+									"type": "text"
+								},
+								{
+									"key": "archivo",
+									"type": "file",
+									"src": "/C:/Users/mao_9/Pictures/tienda-web/Gucci/Zapatillas Gucci Run Hombre.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:8080/producto/crear-con-foto",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"producto",
+								"crear-con-foto"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Editar producto por ID",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"precio\": 4600000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/producto/editar/18",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"producto",
+								"editar",
+								"18"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar producto por ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/producto/eliminar/17",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"producto",
+								"eliminar",
+								"17"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ver Imagen del producto",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/producto/uploads/img/18",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"producto",
+								"uploads",
+								"img",
+								"18"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Marca",
+			"item": [
+				{
+					"name": "Listar Marcas",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/marca",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"marca"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ver marca por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/marca/ver/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"marca",
+								"ver",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Marca con foto",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "nombre",
+									"value": "Gucci",
+									"type": "text"
+								},
+								{
+									"key": "archivo",
+									"type": "file",
+									"src": "/C:/Users/mao_9/Pictures/tienda-web/Gucci/Gucci_logo.svg.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:8080/marca/crear-con-foto",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"marca",
+								"crear-con-foto"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Editar marca por ID",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Gucci\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/marca/editar/6",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"marca",
+								"editar",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar marca por ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/marca/eliminar/5",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"marca",
+								"eliminar",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ver Imagen de la marca",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/marca/uploads/img/6",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"marca",
+								"uploads",
+								"img",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Asignar productos a la marca",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"id\": 18,\r\n        \"nombre\": \"Zapatillas MAC80\",\r\n        \"cantidad\": 2,\r\n        \"precio\": 4600000,\r\n        \"marca\": null,\r\n        \"creatAt\": \"2023-12-13T16:57:30.399+0000\",\r\n        \"fotoHashCode\": 1598345698\r\n    },\r\n    {\r\n        \"id\": 19,\r\n        \"nombre\": \"Zapatillas Gucci Run Hombre\",\r\n        \"cantidad\": 2,\r\n        \"precio\": 4000000,\r\n        \"marca\": null,\r\n        \"creatAt\": null,\r\n        \"fotoHashCode\": null\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/marca/6/asignar-productos",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"marca",
+								"6",
+								"asignar-productos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar o Remover producto de la marca",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "    {\r\n        \"id\": 19\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/marca/6/eliminar-producto",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"marca",
+								"6",
+								"eliminar-producto"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Carrito",
+			"item": [
+				{
+					"name": "Listar carritos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/carrito",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carrito"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ver carrito por ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/carrito/ver/15",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carrito",
+								"ver",
+								"15"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear carrito",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"usuario\":{\r\n        \"id\": 4,\r\n        \"primerNombre\": \"Karen\",\r\n        \"segundoNombre\": \"\",\r\n        \"primerApellido\": \"Rubiano\",\r\n        \"segundoApellido\": \"Torres\",\r\n        \"celular\": 3184568585,\r\n        \"correo\": \"krn@gmail.com\",\r\n        \"createAt\": \"2023-12-13T21:13:23.886+0000\"\r\n    },\r\n    \"productos\":[\r\n\r\n        {\r\n            \"id\": 18,\r\n            \"nombre\": \"Zapatillas MAC80\",\r\n            \"cantidad\": 2,\r\n            \"precio\": 4600000,\r\n            \"creatAt\": \"2023-12-13T16:57:30.399+0000\",\r\n            \"fotoHashCode\": 823311921\r\n        },\r\n        {\r\n            \"id\": 19,\r\n            \"nombre\": \"Zapatillas Gucci Run Hombre\",\r\n            \"cantidad\": 2,\r\n            \"precio\": 4000000,\r\n            \"creatAt\": \"2023-12-13T16:58:04.584+0000\",\r\n            \"fotoHashCode\": 1059685799\r\n        }\r\n    ],\r\n    \"items\":[\r\n        {\r\n            \"producto\":{\r\n                \"id\": 18,\r\n                \"nombre\": \"Zapatillas MAC80\",\r\n                \"cantidad\": 2,\r\n                \"precio\": 4600000,\r\n                \"creatAt\": \"2023-12-13T16:57:30.399+0000\",\r\n                \"fotoHashCode\": 823311921\r\n            },\r\n            \"cantidad\":1\r\n        },\r\n        {\r\n            \"producto\":{\r\n                \"id\": 19,\r\n                \"nombre\": \"Zapatillas Gucci Run Hombre\",\r\n                \"cantidad\": 2,\r\n                \"precio\": 4000000,\r\n                \"creatAt\": \"2023-12-13T16:58:04.584+0000\",\r\n                \"fotoHashCode\": 1059685799\r\n            },\r\n            \"cantidad\":1\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/carrito/crear",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carrito",
+								"crear"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Editar Carrito por ID",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"usuario\":{\r\n        \"id\": 3,\r\n        \"primerNombre\": \"Karen\",\r\n        \"segundoNombre\": \"\",\r\n        \"primerApellido\": \"Rubiano\",\r\n        \"segundoApellido\": \"Torres\",\r\n        \"celular\": 3183852266,\r\n        \"correo\": \"krn@gmail.com\"\r\n    },\r\n    \"productos\":[\r\n        {\r\n            \"id\": 18,\r\n            \"nombre\": \"Zapatillas MAC80\",\r\n            \"cantidad\": 2,\r\n            \"precio\": 4600000\r\n        },\r\n        {\r\n            \"id\": 19,\r\n            \"nombre\": \"Zapatillas Gucci Run Hombre\",\r\n            \"cantidad\": 2,\r\n            \"precio\": 4000000\r\n        }\r\n    ],\r\n    \"items\":[\r\n        {\r\n            \"producto\":{\r\n                \"id\":18\r\n            },\r\n            \"cantidad\":1\r\n        },\r\n        {\r\n            \"producto\":{\r\n                \"id\":19\r\n            },\r\n            \"cantidad\":2\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/carrito/editar/10",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carrito",
+								"editar",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Eliminar Carrito por ID",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/carrito/eliminar/14",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carrito",
+								"eliminar",
+								"14"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Total del Carrito",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/carrito/15/total",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carrito",
+								"15",
+								"total"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Factura",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/carrito/factura/15",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carrito",
+								"factura",
+								"15"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
