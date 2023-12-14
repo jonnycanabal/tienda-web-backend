@@ -1,6 +1,8 @@
 package com.tienda.web.app.controllers;
 
 
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Optional;
 
 
@@ -89,4 +91,39 @@ public class CarritoController {
 		return ResponseEntity.noContent().build();
 	}
 	
+	@GetMapping("/{id}/total")
+	public ResponseEntity<?> total(@PathVariable long id){
+		
+		Optional<Carrito> o = service.finById(id);
+		
+		if(o.isEmpty()) {
+			return ResponseEntity.notFound().build();
+		}
+		
+		Carrito carrito = o.get();
+		
+		double total = carrito.total();
+		
+		return ResponseEntity.ok(total);
+	}
+	
+	@GetMapping("/factura/{id}")
+	public ResponseEntity<byte[]> generarFactura(@PathVariable long id) throws IOException{
+		
+		//llamamos el metodo del servis de carrito para generar la factura
+		byte[] facturaPDF = service.pagar(id);
+		
+		//se veririca si la factura no pudo ser encontrada (carrito no se encontro)
+		if(facturaPDF.length == 0) {
+			return ResponseEntity.notFound().build();
+		}
+		
+		//se escribe, sobreescribe o genera la factura en un archivo con el nombre factura.pdf para visualizar
+		try (FileOutputStream factura = new FileOutputStream("factura.pdf")) {
+			factura.write(facturaPDF);
+		}
+		//retorna la factura en formato PDF
+		return ResponseEntity.ok(facturaPDF);
+	}
+
 }
