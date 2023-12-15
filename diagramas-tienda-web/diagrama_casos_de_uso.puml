@@ -4,11 +4,11 @@ left to right direction
 actor "Usuario" as user
 
 rectangle tienda-web {
-    usecase "ingresa" as uc1
+    usecase "Ingresa" as uc1
     usecase "Busca" as uc2
     usecase "Selecciona" as uc3
     usecase "Agrega al Carrito" as uc4
-    usecase "compra" as uc5
+    usecase "Compra" as uc5
 }
 
 user --> uc1

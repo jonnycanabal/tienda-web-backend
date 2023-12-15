@@ -21,4 +21,5 @@ activate ItemCarrito
 Carrito -> Usuario : Realiza la compra
 activate Carrito
 
+
 @enduml
