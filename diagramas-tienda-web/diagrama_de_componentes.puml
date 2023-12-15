@@ -14,7 +14,7 @@ database BaseDeDatos as db {
     [Base de Datos]
 }
 
-usuario -> tienda_web : Consulta/Actualiza/Elimina
+usuario -> tienda_web : Consulta/Actualiza/Elimina/compra
 
 usuario -> carrito : pedido
 
