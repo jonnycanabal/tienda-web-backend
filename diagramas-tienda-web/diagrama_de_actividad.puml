@@ -12,6 +12,7 @@ start
     if (Agregar Otro Producto) then (Si)
     else(No)
 :Finalizar Pedido;
+:Generar Factura;
 :Realizar Envio;
 :Entrega;
 

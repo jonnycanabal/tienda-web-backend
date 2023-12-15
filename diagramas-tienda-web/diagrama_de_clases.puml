@@ -74,6 +74,9 @@ class Carrito{
     + eliminarProducto()
     + agregarCantidad()
     + editarCantidad()
+    + total()
+    + pagar()
+    + generarFactura()
 }
 
 class ItemCarrito {

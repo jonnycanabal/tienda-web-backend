@@ -12,6 +12,7 @@ state Pedido {
 
 state Confirmado
     Confirmado : Pedido (productos)
+    Confirmado : Genera Factura
 
 state Enviado
     Enviado : Pedido (Enviado)

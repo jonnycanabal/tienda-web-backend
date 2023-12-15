@@ -18,7 +18,11 @@ activate Carrito
 Carrito -> ItemCarrito: Establece relación
 activate ItemCarrito
 
-Carrito -> Usuario : Realiza la compra
+Carrito -> Usuario : Espera confirmación
+
+Usuario -> Carrito: Realiza la compra
+
+Carrito -> Usuario : Genera Factura
 activate Carrito
 
 @enduml
