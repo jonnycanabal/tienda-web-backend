@@ -1,4 +1,4 @@
-	package com.tienda.web.app.services;
+package com.tienda.web.app.services;
 
 import java.util.Optional;
 
@@ -11,13 +11,15 @@ import com.tienda.web.app.models.repository.MarcaRepository;
 
 //Aqui se implementa la interfaz que se creo y los metodos los cuales se deberan acomodar a nuestras necesidades
 
-@Service //con esta clase registramos nuestro componene en nuestro contenedor de spring y podemos inyectarlos en nuestro controladores con autowired
+@Service // con esta clase registramos nuestro componene en nuestro contenedor de spring
+			// y podemos inyectarlos en nuestro controladores con autowired
 public class MarcaServiceImplement implements MarcaService {
 
-	//Aqui se inyecta nuestro repository, se importa con Autowired. Con esto ya podemos utilizarlo y realizar los registros.
+	// Aqui se inyecta nuestro repository, se importa con Autowired. Con esto ya
+	// podemos utilizarlo y realizar los registros.
 	@Autowired
 	private MarcaRepository repository;
-	
+
 	@Override
 	public Iterable<Marca> finAll() {
 		return repository.findAll();

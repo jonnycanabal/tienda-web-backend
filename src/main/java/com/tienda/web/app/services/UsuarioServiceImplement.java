@@ -14,7 +14,7 @@ public class UsuarioServiceImplement implements UsuarioService {
 
 	@Autowired
 	private UsuarioRepository repository;
-	
+
 	@Override
 	public Iterable<Usuario> finAll() {
 		return repository.findAll();
@@ -28,7 +28,7 @@ public class UsuarioServiceImplement implements UsuarioService {
 	@Override
 	@Transactional
 	public Usuario save(Usuario usuario) {
-		
+
 		return repository.save(usuario);
 	}
 

@@ -17,34 +17,35 @@ import javax.persistence.TemporalType;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-
 @Entity
 @Table(name = "usuarios")
 public class Usuario {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	private String primerNombre;
 	private String segundoNombre;
 	private String primerApellido;
 	private String segundoApellido;
-	
-	//@Column(columnDefinition = "BIGINT")
+
+	// @Column(columnDefinition = "BIGINT")
 	private Long celular;
-	
+
 	private String correo;
-	
-	//mappedBy se utiliza para indicar que la relación está mapeada por el campo usuario en la entidad Carrito
+
+	// mappedBy se utiliza para indicar que la relación está mapeada por el campo
+	// usuario en la entidad Carrito
 	@OneToOne(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JsonIgnoreProperties("usuario")//Esta anotacion ayuda a evitar bucles infinitos con la inforamcion al convertirla a JSON
+	@JsonIgnoreProperties("usuario") // Esta anotacion ayuda a evitar bucles infinitos con la inforamcion al
+										// convertirla a JSON
 	private Carrito carrito;
-	
+
 	@Column(name = "create_at")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createAt;
-	
+
 	@PrePersist
 	public void prePersist() {
 		this.createAt = new Date();

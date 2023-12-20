@@ -24,46 +24,48 @@ import javax.persistence.TemporalType;
 @Entity
 @Table(name = "productos")
 public class Producto {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
+
 	private String nombre;
-	
+
 	private Integer cantidad;
-	
+
 	private Integer precio;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "marca_id")
 	private Marca marca;
-	
-	//Esta anotacion no es necesaria debido a que como es una relacion ManyToMany es bidireccional y ya esta establecida en Carrito
+
+	// Esta anotacion no es necesaria debido a que como es una relacion ManyToMany
+	// es bidireccional y ya esta establecida en Carrito
 	@ManyToMany(mappedBy = "productos")
-	@JsonIgnoreProperties("productos")//Esta anotacion ayuda a evitar bucles infinitos con la inforamcion al convertirla a JSON
+	@JsonIgnoreProperties("productos") // Esta anotacion ayuda a evitar bucles infinitos con la inforamcion al
+										// convertirla a JSON
 	@JsonIgnore
 	private Set<Carrito> carritos = new HashSet<>();
-	
+
 	@Column(name = "creat_at")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date creatAt;
-	
+
 	@PrePersist
 	public void prePersist() {
 		this.creatAt = new Date();
 	}
-	
+
 	@Lob
 	@Column(columnDefinition = "LONGBLOB")
 	@JsonIgnore
 	public byte[] foto;
 
 	public Integer getFotoHashCode() {
-		
-		return (this.foto != null)? this.foto.hashCode(): null;
+
+		return (this.foto != null) ? this.foto.hashCode() : null;
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -112,22 +114,23 @@ public class Producto {
 		this.foto = foto;
 	}
 
-	//vamos a sobreescribir el metodo equals
-	//Este metodo es importante para eliminar un objeto de la relacion
+	// vamos a sobreescribir el metodo equals
+	// Este metodo es importante para eliminar un objeto de la relacion
 	@Override
 	public boolean equals(Object obj) {
-		
-		if(this == obj) {
+
+		if (this == obj) {
 			return true;
 		}
-		//validar que los objetos sean instancia de producto
-		if(!(obj instanceof Producto)) {
+		// validar que los objetos sean instancia de producto
+		if (!(obj instanceof Producto)) {
 			return false;
 		}
-		
-		//ahora necesitamos comparar los ID y se necesita hacer un cash del tipo producto
+
+		// ahora necesitamos comparar los ID y se necesita hacer un cash del tipo
+		// producto
 		Producto p = (Producto) obj;
-		
+
 		return this.id != null && this.id.equals(p.getId());
 	}
 
@@ -146,5 +149,5 @@ public class Producto {
 	public void setCarritos(Set<Carrito> carritos) {
 		this.carritos = carritos;
 	}
-	
+
 }
