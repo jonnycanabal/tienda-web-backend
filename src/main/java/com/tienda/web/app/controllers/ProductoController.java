@@ -42,47 +42,47 @@ public class ProductoController {
 	@GetMapping("/ver/{id}")
 	public ResponseEntity<?> ver(@PathVariable Long id) {
 
-		Optional<Producto> p = service.finById(id);
+		Optional<Producto> productoActual = service.finById(id);
 
-		if (p.isEmpty()) {
+		if (productoActual.isEmpty()) {
 			return ResponseEntity.notFound().build();
 		}
 
-		return ResponseEntity.ok().body(p.get());
+		return ResponseEntity.ok().body(productoActual.get());
 	}
 
 	@PostMapping("/crear")
 	public ResponseEntity<?> crear(@RequestBody Producto producto) {
 
-		Producto productoDb = service.save(producto);
+		Producto nuevoProducto = service.save(producto);
 
-		return ResponseEntity.status(HttpStatus.CREATED).body(productoDb);
+		return ResponseEntity.status(HttpStatus.CREATED).body(nuevoProducto);
 	}
 
 	@PutMapping("/editar/{id}")
 	public ResponseEntity<?> editar(@RequestBody Producto producto, @PathVariable Long id) {
 
-		Optional<Producto> p = service.finById(id);
+		Optional<Producto> productoActual = service.finById(id);
 
-		if (p.isEmpty()) {
+		if (productoActual.isEmpty()) {
 			return ResponseEntity.notFound().build();
 		}
 
-		Producto productoDb = p.get();
+		Producto productoModificado = productoActual.get();
 
 		if (producto.getNombre() != null) {
-			productoDb.setNombre(producto.getNombre());
+			productoModificado.setNombre(producto.getNombre());
 		}
 
 		if (producto.getCantidad() != null) {
-			productoDb.setCantidad(producto.getCantidad());
+			productoModificado.setCantidad(producto.getCantidad());
 		}
 
 		if (producto.getPrecio() != null) {
-			productoDb.setPrecio(producto.getPrecio());
+			productoModificado.setPrecio(producto.getPrecio());
 		}
 
-		return ResponseEntity.status(HttpStatus.CREATED).body(service.save(productoDb));
+		return ResponseEntity.status(HttpStatus.CREATED).body(service.save(productoModificado));
 	}
 
 	@DeleteMapping("/elimiar/{id}")
@@ -101,13 +101,13 @@ public class ProductoController {
 	@GetMapping("/uploads/img/{id}")
 	public ResponseEntity<?> verFoto(@PathVariable Long id) {
 
-		Optional<Producto> p = service.finById(id);
+		Optional<Producto> productoActual = service.finById(id);
 
-		if (p.isEmpty() || p.get().getFoto() == null) {
+		if (productoActual.isEmpty() || productoActual.get().getFoto() == null) {
 			return ResponseEntity.notFound().build();
 		}
 
-		Resource imagen = new ByteArrayResource(p.get().getFoto());
+		Resource imagen = new ByteArrayResource(productoActual.get().getFoto());
 
 		return ResponseEntity.ok().contentType(MediaType.IMAGE_JPEG).body(imagen);
 	}
@@ -127,30 +127,30 @@ public class ProductoController {
 	public ResponseEntity<?> editarConFoto(@Valid Producto producto, BindingResult result, @PathVariable Long id,
 			@RequestParam MultipartFile archivo) throws IOException {
 
-		Optional<Producto> p = service.finById(id);
+		Optional<Producto> productoActual = service.finById(id);
 
-		if (p.isEmpty()) {
+		if (productoActual.isEmpty()) {
 			return ResponseEntity.notFound().build();
 		}
 
-		Producto productoDb = p.get();
+		Producto productoModificado = productoActual.get();
 
 		if (producto.getNombre() != null) {
-			productoDb.setNombre(producto.getNombre());
+			productoModificado.setNombre(producto.getNombre());
 		}
 
 		if (producto.getCantidad() != null) {
-			productoDb.setCantidad(producto.getCantidad());
+			productoModificado.setCantidad(producto.getCantidad());
 		}
 
 		if (producto.getPrecio() != null) {
-			productoDb.setPrecio(producto.getPrecio());
+			productoModificado.setPrecio(producto.getPrecio());
 		}
 
 		if (!archivo.isEmpty()) {
-			productoDb.setFoto(archivo.getBytes());
+			productoModificado.setFoto(archivo.getBytes());
 		}
 
-		return ResponseEntity.status(HttpStatus.CREATED).body(service.save(productoDb));
+		return ResponseEntity.status(HttpStatus.CREATED).body(service.save(productoModificado));
 	}
 }

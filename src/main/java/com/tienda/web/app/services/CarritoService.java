@@ -17,4 +17,7 @@ public interface CarritoService {
 
 	// metodo para generar factura al pagar
 	byte[] pagar(Long id) throws IOException;
+
+	// metodo para visualizar el contenido de la factura, este metodo devuelve un String
+	String contenidoFactura(Long id) throws IOException;
 }

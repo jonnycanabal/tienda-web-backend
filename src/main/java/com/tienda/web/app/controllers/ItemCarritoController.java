@@ -32,13 +32,13 @@ public class ItemCarritoController {
 	@GetMapping("/ver/{id}")
 	public ResponseEntity<?> ver(@PathVariable Long id) {
 
-		Optional<ItemCarrito> o = service.finById(id);
+		Optional<ItemCarrito> itemCarritoActual = service.finById(id);
 
-		if (o.isEmpty()) {
+		if (itemCarritoActual.isEmpty()) {
 			return ResponseEntity.notFound().build();
 		}
 
-		return ResponseEntity.ok().body(o.get());
+		return ResponseEntity.ok().body(itemCarritoActual.get());
 	}
 
 	@PutMapping("/crear")
@@ -52,13 +52,13 @@ public class ItemCarritoController {
 	@PostMapping("/editar/{id}")
 	public ResponseEntity<?> editar(@RequestBody ItemCarrito itemCarrito, @PathVariable Long id) {
 
-		Optional<ItemCarrito> o = service.finById(id);
+		Optional<ItemCarrito> itemCarritoActual = service.finById(id);
 
-		if (o.isEmpty()) {
+		if (itemCarritoActual.isEmpty()) {
 			return ResponseEntity.notFound().build();
 		}
 
-		ItemCarrito itemCarritoDb = o.get();
+		ItemCarrito itemCarritoDb = itemCarritoActual.get();
 
 		if (itemCarrito.getCarrito() != null) {
 			itemCarritoDb.setCarrito(itemCarrito.getCarrito());
