@@ -1,7 +1,9 @@
 package com.tienda.web.app.services;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.io.StringWriter;
 import java.time.LocalDate;
 import java.util.Optional;
 
@@ -10,6 +12,7 @@ import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.common.PDRectangle;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
+import org.apache.pdfbox.text.PDFTextStripper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -107,6 +110,35 @@ public class CarritoServiceImplement implements CarritoService {
 
 		// regresamos el contenido del PDF en un arreglo de bytes
 		return byteArrayOutputStream.toByteArray();
+	}
+
+	// implementacion del metodo para visualizar el contenido de la factura con
+	// PDFBOX
+	@Override
+	public String contenidoFactura(Long id) throws IOException {
+
+		// Llamar al metodo existente para obtener el contenido de la factura en formado
+		// PDF como un arrelgo de bytes
+		byte[] contenidoPDF = pagar(id);
+
+		// Cargamos el contenido del PDF desde el arreglo de bytes (PDDocuent - clase de
+		// PDFBox)
+		PDDocument document = PDDocument.load(new ByteArrayInputStream(contenidoPDF));
+
+		// Se crea un objeto StringWriter que actua como un contenedor para el texto
+		// extraido del PDF
+		StringWriter writer = new StringWriter();
+
+		// Crea un objeto PDFTextStripper que es una clase de PDFBox que se utiliza para
+		// extraer texto de un documento PDF
+		PDFTextStripper stripper = new PDFTextStripper();
+
+		// se utiliza el stripper para extraer el texto del documento PDF y escribirlo
+		// en el StringWriter
+		stripper.writeText(document, writer);
+		document.close();
+
+		return writer.toString();
 	}
 
 }

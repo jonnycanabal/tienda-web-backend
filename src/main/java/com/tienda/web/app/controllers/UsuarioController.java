@@ -34,13 +34,13 @@ public class UsuarioController {
 	@GetMapping("/ver/{id}")
 	public ResponseEntity<?> ver(@PathVariable Long id) {
 
-		Optional<Usuario> o = service.finById(id);
+		Optional<Usuario> usuarioActual = service.finById(id);
 
-		if (o.isEmpty()) {
+		if (usuarioActual.isEmpty()) {
 			return ResponseEntity.notFound().build();
 		}
 
-		return ResponseEntity.ok().body(o.get());
+		return ResponseEntity.ok().body(usuarioActual.get());
 	}
 
 	@PostMapping("/crear")
@@ -51,47 +51,47 @@ public class UsuarioController {
 
 		usuario.setCarrito(carrito);
 
-		Usuario usuariodb = service.save(usuario);
+		Usuario nuevoUsuario = service.save(usuario);
 
-		return ResponseEntity.status(HttpStatus.CREATED).body(usuariodb);
+		return ResponseEntity.status(HttpStatus.CREATED).body(nuevoUsuario);
 	}
 
 	@PutMapping("/editar/{id}")
 	public ResponseEntity<?> editar(@RequestBody Usuario usuario, @PathVariable Long id) {
 
-		Optional<Usuario> o = service.finById(id);
+		Optional<Usuario> usuarioActual = service.finById(id);
 
-		if (o.isEmpty()) {
+		if (usuarioActual.isEmpty()) {
 			return ResponseEntity.notFound().build();
 		}
 
-		Usuario usuariodb = o.get();
+		Usuario usuarioModificado = usuarioActual.get();
 
 		if (usuario.getPrimerNombre() != null) {
-			usuariodb.setPrimerNombre(usuario.getPrimerNombre());
+			usuarioModificado.setPrimerNombre(usuario.getPrimerNombre());
 		}
 
 		if (usuario.getSegundoNombre() != null) {
-			usuariodb.setSegundoNombre(usuario.getSegundoNombre());
+			usuarioModificado.setSegundoNombre(usuario.getSegundoNombre());
 		}
 
 		if (usuario.getPrimerApellido() != null) {
-			usuariodb.setPrimerApellido(usuario.getPrimerApellido());
+			usuarioModificado.setPrimerApellido(usuario.getPrimerApellido());
 		}
 
 		if (usuario.getSegundoApellido() != null) {
-			usuariodb.setSegundoApellido(usuario.getSegundoApellido());
+			usuarioModificado.setSegundoApellido(usuario.getSegundoApellido());
 		}
 
 		if (usuario.getCelular() != null) {
-			usuariodb.setCelular(usuario.getCelular());
+			usuarioModificado.setCelular(usuario.getCelular());
 		}
 
 		if (usuario.getCorreo() != null) {
-			usuariodb.setCorreo(usuario.getCorreo());
+			usuarioModificado.setCorreo(usuario.getCorreo());
 		}
 
-		return ResponseEntity.status(HttpStatus.CREATED).body(service.save(usuariodb));
+		return ResponseEntity.status(HttpStatus.CREATED).body(service.save(usuarioModificado));
 	}
 
 	@DeleteMapping("/eliminar/{id}")

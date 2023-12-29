@@ -1,6 +1,6 @@
 package com.tienda.web.app.controllers;
 
-import java.io.FileOutputStream;
+//import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Optional;
@@ -39,13 +39,13 @@ public class CarritoController {
 	@GetMapping("/ver/{id}")
 	public ResponseEntity<?> ver(@PathVariable Long id) {
 
-		Optional<Carrito> o = service.finById(id);
+		Optional<Carrito> carritoActual = service.finById(id);
 
-		if (o.isEmpty()) {
+		if (carritoActual.isEmpty()) {
 			return ResponseEntity.notFound().build();
 		}
 
-		return ResponseEntity.ok().body(o.get());
+		return ResponseEntity.ok().body(carritoActual.get());
 	}
 
 	@PostMapping("/crear")
@@ -65,20 +65,20 @@ public class CarritoController {
 	@PutMapping("/editar/{id}")
 	public ResponseEntity<?> editar(@RequestBody Carrito carrito, @PathVariable Long id) {
 
-		Optional<Carrito> o = service.finById(id);
+		Optional<Carrito> carritoActual = service.finById(id);
 
-		if (o.isEmpty()) {
+		if (carritoActual.isEmpty()) {
 			return ResponseEntity.notFound().build();
 		}
 
-		Carrito carritodb = o.get();
+		Carrito carritoModificado = carritoActual.get();
 
 		if (carrito.getProductos() != null) {
-			carritodb.setProductos(carrito.getProductos());
+			carritoModificado.setProductos(carrito.getProductos());
 		}
 
 		if (carrito.getUsuario() != null) {
-			carritodb.setUsuario(carrito.getUsuario());
+			carritoModificado.setUsuario(carrito.getUsuario());
 		}
 
 		// se crea un conjunto Set el cual contendra los items nuevos o actualizados
@@ -89,17 +89,17 @@ public class CarritoController {
 			for (ItemCarrito item : carrito.getItems()) {
 				// luego asociamos lo de ItemCarrito con el Carrito Actual en este caso lo que
 				// ya se tenia en carritodb a itemsactualizados
-				item.setCarrito(carritodb);
+				item.setCarrito(carritoModificado);
 				itemsActualizados.add(item);
 			}
 		}
 
 		// luego limpiamos la coleccion actual de ItemCarrito de carritodb y despues
 		// agregamos los items actualizamos de itemsActualizados
-		carritodb.getItems().clear();
-		carritodb.getItems().addAll(itemsActualizados);
+		carritoModificado.getItems().clear();
+		carritoModificado.getItems().addAll(itemsActualizados);
 
-		Carrito carritoActualizado = service.save(carritodb);
+		Carrito carritoActualizado = service.save(carritoModificado);
 
 		return ResponseEntity.status(HttpStatus.CREATED).body(carritoActualizado);
 	}
@@ -107,13 +107,13 @@ public class CarritoController {
 	@DeleteMapping("eliminar/{id}")
 	public ResponseEntity<?> eliminar(@PathVariable Long id) {
 
-		Optional<Carrito> o = service.finById(id);
+		Optional<Carrito> carritoActual = service.finById(id);
 
-		if (o.isEmpty()) {
+		if (carritoActual.isEmpty()) {
 			return ResponseEntity.notFound().build();
 		}
 
-		Carrito carritodb = o.get();
+		Carrito carritodb = carritoActual.get();
 
 		carritodb.getItems().clear();
 		carritodb.setProductos(null);
@@ -131,13 +131,13 @@ public class CarritoController {
 	@GetMapping("/{id}/total")
 	public ResponseEntity<?> total(@PathVariable long id) {
 
-		Optional<Carrito> o = service.finById(id);
+		Optional<Carrito> carritoActual = service.finById(id);
 
-		if (o.isEmpty()) {
+		if (carritoActual.isEmpty()) {
 			return ResponseEntity.notFound().build();
 		}
 
-		Carrito carrito = o.get();
+		Carrito carrito = carritoActual.get();
 
 		double total = carrito.total();
 
@@ -145,23 +145,34 @@ public class CarritoController {
 	}
 
 	@GetMapping("/factura/{id}")
-	public ResponseEntity<byte[]> generarFactura(@PathVariable long id) throws IOException {
+	public ResponseEntity<String> generarFactura(@PathVariable long id) throws IOException {
 
 		// llamamos el metodo del servis de carrito para generar la factura
-		byte[] facturaPDF = service.pagar(id);
+		// byte[] facturaPDF = service.pagar(id);
 
 		// se veririca si la factura no pudo ser encontrada (carrito no se encontro)
-		if (facturaPDF.length == 0) {
-			return ResponseEntity.notFound().build();
-		}
+		// if (facturaPDF.length == 0) {
+		// return ResponseEntity.notFound().build();
+		// }
 
 		// se escribe, sobreescribe o genera la factura en un archivo con el nombre
 		// factura.pdf para visualizar
-		try (FileOutputStream factura = new FileOutputStream("factura.pdf")) {
-			factura.write(facturaPDF);
-		}
+		// try (FileOutputStream factura = new FileOutputStream("factura.pdf")) {
+		// factura.write(facturaPDF);
+		// }
 		// retorna la factura en formato PDF
-		return ResponseEntity.ok(facturaPDF);
+		// return ResponseEntity.ok(facturaPDF);
+
+		// Se llama al metodo creado para ver el contenido de la factura.
+		String contenidoFactura = service.contenidoFactura(id);
+
+		// Se valida que el contenido no este vacio
+		if (contenidoFactura.isEmpty()) {
+			return ResponseEntity.notFound().build();
+		}
+
+		// retorna el contenido
+		return ResponseEntity.ok(contenidoFactura);
 	}
 
 }
