@@ -11,20 +11,20 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 public class ItemCarrito {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long Id;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "carrito_id")
 	@JsonBackReference
 	private Carrito carrito;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "producto_id")
 	private Producto producto;
-	
+
 	private Integer cantidad;
 
 	public Long getId() {
@@ -59,5 +59,4 @@ public class ItemCarrito {
 		this.cantidad = cantidad;
 	}
 
-	
 }

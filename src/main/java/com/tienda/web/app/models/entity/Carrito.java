@@ -23,45 +23,42 @@ import javax.persistence.TemporalType;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-
 @Entity
 @Table(name = "carritos")
 public class Carrito {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@Column(name = "create_at")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date creatAt;
-	
+
 	@OneToOne
 	@JoinColumn(name = "usuario_id")
-	@JsonIgnoreProperties("carrito")//Esta anotacion ayuda a evitar bucles infinitos con la inforamcion al convertirla a JSON
+	@JsonIgnoreProperties("carrito") // Esta anotacion ayuda a evitar bucles infinitos con la inforamcion al
+										// convertirla a JSON
 	private Usuario usuario;
-	
+
 	@ManyToMany
-	@JoinTable(
-			name = "carrito_producto",
-			joinColumns = @JoinColumn(name = "carrito_id"),
-			inverseJoinColumns = @JoinColumn(name = "producto_id"))
+	@JoinTable(name = "carrito_producto", joinColumns = @JoinColumn(name = "carrito_id"), inverseJoinColumns = @JoinColumn(name = "producto_id"))
 	private Set<Producto> productos = new HashSet<>();
 
 	@OneToMany(mappedBy = "carrito", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonManagedReference
 	private Set<ItemCarrito> items = new HashSet<>();
-	
+
 	@PrePersist
 	public void prePersist() {
 		this.creatAt = new Date();
 	}
-	
-	//Metodo para calcular el total de los prodcutos del carrito
+
+	// Metodo para calcular el total de los prodcutos del carrito
 	public double total() {
-		return items.stream().mapToDouble(item -> item.getProducto().getPrecio()* item.getCantidad()).sum();
+		return items.stream().mapToDouble(item -> item.getProducto().getPrecio() * item.getCantidad()).sum();
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -101,5 +98,5 @@ public class Carrito {
 	public void setItems(Set<ItemCarrito> items) {
 		this.items = items;
 	}
-	
+
 }
