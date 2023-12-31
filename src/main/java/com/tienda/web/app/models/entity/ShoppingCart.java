@@ -24,8 +24,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
-@Table(name = "carritos")
-public class Carrito {
+@Table(name = "shoppingCarts")
+public class ShoppingCart {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -36,27 +36,26 @@ public class Carrito {
 	private Date creatAt;
 
 	@OneToOne
-	@JoinColumn(name = "usuario_id")
-	@JsonIgnoreProperties("carrito") // Esta anotacion ayuda a evitar bucles infinitos con la inforamcion al
-										// convertirla a JSON
-	private Usuario usuario;
+	@JoinColumn(name = "user_id")
+	@JsonIgnoreProperties("shoppingCart") // Esta anotacion ayuda a evitar bucles infinitos con la inforamcion al convertirla a JSON
+	private User user;
 
 	@ManyToMany
-	@JoinTable(name = "carrito_producto", joinColumns = @JoinColumn(name = "carrito_id"), inverseJoinColumns = @JoinColumn(name = "producto_id"))
-	private Set<Producto> productos = new HashSet<>();
+	@JoinTable(name = "shoppingCart_product", joinColumns = @JoinColumn(name = "shoppingCart_id"), inverseJoinColumns = @JoinColumn(name = "product_id"))
+	private Set<Product> products = new HashSet<>();
 
-	@OneToMany(mappedBy = "carrito", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "shoppingCart", cascade = CascadeType.ALL, orphanRemoval = true)
 	@JsonManagedReference
-	private Set<ItemCarrito> items = new HashSet<>();
+	private Set<CartItem> items = new HashSet<>();
 
 	@PrePersist
 	public void prePersist() {
 		this.creatAt = new Date();
 	}
 
-	// Metodo para calcular el total de los prodcutos del carrito
-	public double total() {
-		return items.stream().mapToDouble(item -> item.getProducto().getPrecio() * item.getCantidad()).sum();
+	// Metodo para calcular el total de los productos del carrito
+	public double calculateTotal() {
+		return items.stream().mapToDouble(item -> item.getProduct().getPrice() * item.getQuantity()).sum();
 	}
 
 	public Long getId() {
@@ -75,27 +74,27 @@ public class Carrito {
 		this.creatAt = creatAt;
 	}
 
-	public Usuario getUsuario() {
-		return usuario;
+	public User getUser() {
+		return user;
 	}
 
-	public void setUsuario(Usuario usuario) {
-		this.usuario = usuario;
+	public void setUser(User user) {
+		this.user = user;
 	}
 
-	public Set<Producto> getProductos() {
-		return productos;
+	public Set<Product> getProducts() {
+		return products;
 	}
 
-	public void setProductos(Set<Producto> productos) {
-		this.productos = productos;
+	public void setProducts(Set<Product> products) {
+		this.products = products;
 	}
 
-	public Set<ItemCarrito> getItems() {
+	public Set<CartItem> getItems() {
 		return items;
 	}
 
-	public void setItems(Set<ItemCarrito> items) {
+	public void setItems(Set<CartItem> items) {
 		this.items = items;
 	}
 

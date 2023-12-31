@@ -17,31 +17,31 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.tienda.web.app.models.entity.Carrito;
-import com.tienda.web.app.models.entity.ItemCarrito;
-import com.tienda.web.app.models.entity.Usuario;
-import com.tienda.web.app.models.repository.CarritoRepository;
+import com.tienda.web.app.models.entity.ShoppingCart;
+import com.tienda.web.app.models.entity.CartItem;
+import com.tienda.web.app.models.entity.User;
+import com.tienda.web.app.models.repository.ShoppingCartRepository;
 
 @Service
-public class CarritoServiceImplement implements CarritoService {
+public class ShoppingCartServiceImplement implements ShoppingCartService {
 
 	@Autowired
-	private CarritoRepository repository;
+	private ShoppingCartRepository repository;
 
 	@Override
-	public Iterable<Carrito> finAll() {
+	public Iterable<ShoppingCart> finAll() {
 		return repository.findAll();
 	}
 
 	@Override
-	public Optional<Carrito> finById(Long id) {
+	public Optional<ShoppingCart> finById(Long id) {
 		return repository.findById(id);
 	}
 
 	@Override
 	@Transactional
-	public Carrito save(Carrito carrito) {
-		return repository.save(carrito);
+	public ShoppingCart save(ShoppingCart shoppingCart) {
+		return repository.save(shoppingCart);
 	}
 
 	@Override
@@ -50,58 +50,58 @@ public class CarritoServiceImplement implements CarritoService {
 		repository.deleteById(id);
 	}
 
-	public byte[] pagar(Long id) throws IOException {
+	public byte[] generateInvoice(Long id) throws IOException {
 
 		// Buscar el carrito por su ID en la base de datos
-		Optional<Carrito> o = repository.findById(id);
+		Optional<ShoppingCart> currentShoppingCart = repository.findById(id);
 
 		// Verificamos que el carrito exista
-		if (o.isEmpty()) {
+		if (currentShoppingCart.isEmpty()) {
 			return new byte[0];
 		}
 
 		// Optenemos el carrito y el usuario asociado
-		Carrito carrito = o.get();
-		Usuario usuario = carrito.getUsuario();
+		ShoppingCart shoppingCart = currentShoppingCart.get();
+		User user = shoppingCart.getUser();
 
 		// creo el documento
 		PDDocument document = new PDDocument();
 
 		// creo la pagina con sus tamaño y agrego la pagina a mi documento
-		PDPage pagina = new PDPage(PDRectangle.A4);
-		document.addPage(pagina);
+		PDPage page = new PDPage(PDRectangle.A4);
+		document.addPage(page);
 
 		// crear el flujo de contenido para escribir en la pagina
-		PDPageContentStream contenidoStream = new PDPageContentStream(document, pagina);
+		PDPageContentStream contentStream = new PDPageContentStream(document, page);
 
 		// configurar el formato, informacion y contenido de la pagina
-		contenidoStream.beginText();
-		contenidoStream.setFont(PDType1Font.HELVETICA_BOLD, 18);
-		contenidoStream.newLineAtOffset(50, 750);
-		contenidoStream.showText("Factura de Compra");
-		contenidoStream.newLineAtOffset(0, -20);
-		contenidoStream.setFont(PDType1Font.HELVETICA, 12);
-		contenidoStream.showText("Fecha: " + LocalDate.now());
-		contenidoStream.newLineAtOffset(0, -20);
-		contenidoStream.showText("Cliente: " + usuario.getPrimerNombre() + " " + usuario.getPrimerApellido());
-		contenidoStream.newLineAtOffset(0, -20);
-		contenidoStream.showText("Productos: ");
+		contentStream.beginText();
+		contentStream.setFont(PDType1Font.HELVETICA_BOLD, 18);
+		contentStream.newLineAtOffset(50, 750);
+		contentStream.showText("Factura de Compra");
+		contentStream.newLineAtOffset(0, -20);
+		contentStream.setFont(PDType1Font.HELVETICA, 12);
+		contentStream.showText("Fecha: " + LocalDate.now());
+		contentStream.newLineAtOffset(0, -20);
+		contentStream.showText("Cliente: " + user.getFirtsName() + " " + user.getLastName());
+		contentStream.newLineAtOffset(0, -20);
+		contentStream.showText("Productos: ");
 
 		// iteramos en los productos del carrito para asi agrearlos al contenido de la
 		// pagina
-		for (ItemCarrito item : carrito.getItems()) {
-			contenidoStream.newLineAtOffset(0, -15);
-			contenidoStream.showText("- " + item.getProducto().getNombre() + ", Precio: "
-					+ item.getProducto().getPrecio() + ", cantidad: " + item.getCantidad());
+		for (CartItem item : shoppingCart.getItems()) {
+			contentStream.newLineAtOffset(0, -15);
+			contentStream.showText("- " + item.getProduct().getProductName() + ", Precio: "
+					+ item.getProduct().getPrice() + ", cantidad: " + item.getQuantity());
 
 		}
 
-		contenidoStream.newLineAtOffset(0, -20);
-		contenidoStream.showText("Total: $" + carrito.total());
+		contentStream.newLineAtOffset(0, -20);
+		contentStream.showText("Total: $" + shoppingCart.calculateTotal());
 
-		contenidoStream.endText();
+		contentStream.endText();
 
-		contenidoStream.close();
+		contentStream.close();
 
 		// Convertir el documento a PDF a bytes y cerramos el documento
 		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -115,15 +115,15 @@ public class CarritoServiceImplement implements CarritoService {
 	// implementacion del metodo para visualizar el contenido de la factura con
 	// PDFBOX
 	@Override
-	public String contenidoFactura(Long id) throws IOException {
+	public String invoiceContent(Long id) throws IOException {
 
 		// Llamar al metodo existente para obtener el contenido de la factura en formado
 		// PDF como un arrelgo de bytes
-		byte[] contenidoPDF = pagar(id);
+		byte[] contentPDF = generateInvoice(id);
 
 		// Cargamos el contenido del PDF desde el arreglo de bytes (PDDocuent - clase de
 		// PDFBox)
-		PDDocument document = PDDocument.load(new ByteArrayInputStream(contenidoPDF));
+		PDDocument document = PDDocument.load(new ByteArrayInputStream(contentPDF));
 
 		// Se crea un objeto StringWriter que actua como un contenedor para el texto
 		// extraido del PDF

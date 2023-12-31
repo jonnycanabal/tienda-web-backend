@@ -54,7 +54,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"primerNombre\": \"Karen\",\r\n    \"segundoNombre\": \"\",\r\n    \"primerApellido\": \"Rubiano\",\r\n    \"segundoApellido\": \"Torres\",\r\n    \"celular\": 3184568585,\r\n    \"correo\": \"krn@gmail.com\"\r\n}",
+							"raw": "{\r\n    \"firtsName\": \"Diego\",\r\n    \"middleName\": \"\",\r\n    \"lastName\": \"Briñez\",\r\n    \"seconLastName\": \"\",\r\n    \"phoneNumber\": 3152657485,\r\n    \"email\": \"pumba@gmail.com\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -82,7 +82,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"celular\": 3183852266\r\n}",
+							"raw": "{\r\n    \"firtsName\": \"Diego\",\r\n    \"middleName\": \"\",\r\n    \"lastName\": \"Briñez\",\r\n    \"seconLastName\": \"\",\r\n    \"phoneNumber\": 3152657485,\r\n    \"email\": \"pumba@gmail.com\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -90,7 +90,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/usuario/editar/3",
+							"raw": "localhost:8080/usuario/editar/1",
 							"host": [
 								"localhost"
 							],
@@ -98,7 +98,7 @@
 							"path": [
 								"usuario",
 								"editar",
-								"3"
+								"1"
 							]
 						}
 					},
@@ -176,29 +176,19 @@
 							"mode": "formdata",
 							"formdata": [
 								{
-									"key": "nombre",
-									"value": "Zapatillas Gucci Run Hombre",
+									"key": "productName",
+									"value": "Zapatillas Ziane",
 									"type": "text"
 								},
 								{
-									"key": "cantidad",
-									"value": "2",
+									"key": "price",
+									"value": "250000",
 									"type": "text"
 								},
 								{
-									"key": "precio",
-									"value": "4000000",
-									"type": "text"
-								},
-								{
-									"key": "marca",
-									"value": "Gucci",
-									"type": "text"
-								},
-								{
-									"key": "archivo",
+									"key": "file",
 									"type": "file",
-									"src": "/C:/Users/mao_9/Pictures/tienda-web/Gucci/Zapatillas Gucci Run Hombre.jpg"
+									"src": "/C:/Users/mao_9/Pictures/tienda-web/lacoste/lacoste-zapatillas-ziane.jpg"
 								}
 							]
 						},
@@ -271,7 +261,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/producto/uploads/img/18",
+							"raw": "localhost:8080/producto/uploads/img/1",
 							"host": [
 								"localhost"
 							],
@@ -280,7 +270,7 @@
 								"producto",
 								"uploads",
 								"img",
-								"18"
+								"1"
 							]
 						}
 					},
@@ -338,14 +328,14 @@
 							"mode": "formdata",
 							"formdata": [
 								{
-									"key": "nombre",
-									"value": "Gucci",
+									"key": "brandName",
+									"value": "Totto",
 									"type": "text"
 								},
 								{
-									"key": "archivo",
+									"key": "file",
 									"type": "file",
-									"src": "/C:/Users/mao_9/Pictures/tienda-web/Gucci/Gucci_logo.svg.png"
+									"src": "/C:/Users/mao_9/Pictures/tienda-web/totto/logo-totto.png"
 								}
 							]
 						},
@@ -440,7 +430,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "[\r\n    {\r\n        \"id\": 18,\r\n        \"nombre\": \"Zapatillas MAC80\",\r\n        \"cantidad\": 2,\r\n        \"precio\": 4600000,\r\n        \"marca\": null,\r\n        \"creatAt\": \"2023-12-13T16:57:30.399+0000\",\r\n        \"fotoHashCode\": 1598345698\r\n    },\r\n    {\r\n        \"id\": 19,\r\n        \"nombre\": \"Zapatillas Gucci Run Hombre\",\r\n        \"cantidad\": 2,\r\n        \"precio\": 4000000,\r\n        \"marca\": null,\r\n        \"creatAt\": null,\r\n        \"fotoHashCode\": null\r\n    }\r\n]",
+							"raw": "[\r\n{\r\n        \"id\": 5,\r\n        \"productName\": \"Zapatillas Powercourt\",\r\n        \"price\": 250000,\r\n        \"brand\": null,\r\n        \"creatAt\": \"2023-12-31T05:22:00.967+0000\",\r\n        \"photoHashCode\": 801439575\r\n    },\r\n    {\r\n        \"id\": 6,\r\n        \"productName\": \"Zapatillas Ziane\",\r\n        \"price\": 250000,\r\n        \"brand\": null,\r\n        \"creatAt\": \"2023-12-31T05:22:23.824+0000\",\r\n        \"photoHashCode\": 37925481\r\n    }\r\n]",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -448,14 +438,14 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/marca/6/asignar-productos",
+							"raw": "localhost:8080/marca/3/asignar-productos",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
 								"marca",
-								"6",
+								"3",
 								"asignar-productos"
 							]
 						}
@@ -520,7 +510,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/carrito/ver/15",
+							"raw": "localhost:8080/carrito/ver/1",
 							"host": [
 								"localhost"
 							],
@@ -528,7 +518,7 @@
 							"path": [
 								"carrito",
 								"ver",
-								"15"
+								"1"
 							]
 						}
 					},
@@ -541,7 +531,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"usuario\":{\r\n        \"id\": 4,\r\n        \"primerNombre\": \"Karen\",\r\n        \"segundoNombre\": \"\",\r\n        \"primerApellido\": \"Rubiano\",\r\n        \"segundoApellido\": \"Torres\",\r\n        \"celular\": 3184568585,\r\n        \"correo\": \"krn@gmail.com\",\r\n        \"createAt\": \"2023-12-13T21:13:23.886+0000\"\r\n    },\r\n    \"productos\":[\r\n\r\n        {\r\n            \"id\": 18,\r\n            \"nombre\": \"Zapatillas MAC80\",\r\n            \"cantidad\": 2,\r\n            \"precio\": 4600000,\r\n            \"creatAt\": \"2023-12-13T16:57:30.399+0000\",\r\n            \"fotoHashCode\": 823311921\r\n        },\r\n        {\r\n            \"id\": 19,\r\n            \"nombre\": \"Zapatillas Gucci Run Hombre\",\r\n            \"cantidad\": 2,\r\n            \"precio\": 4000000,\r\n            \"creatAt\": \"2023-12-13T16:58:04.584+0000\",\r\n            \"fotoHashCode\": 1059685799\r\n        }\r\n    ],\r\n    \"items\":[\r\n        {\r\n            \"producto\":{\r\n                \"id\": 18,\r\n                \"nombre\": \"Zapatillas MAC80\",\r\n                \"cantidad\": 2,\r\n                \"precio\": 4600000,\r\n                \"creatAt\": \"2023-12-13T16:57:30.399+0000\",\r\n                \"fotoHashCode\": 823311921\r\n            },\r\n            \"cantidad\":1\r\n        },\r\n        {\r\n            \"producto\":{\r\n                \"id\": 19,\r\n                \"nombre\": \"Zapatillas Gucci Run Hombre\",\r\n                \"cantidad\": 2,\r\n                \"precio\": 4000000,\r\n                \"creatAt\": \"2023-12-13T16:58:04.584+0000\",\r\n                \"fotoHashCode\": 1059685799\r\n            },\r\n            \"cantidad\":1\r\n        }\r\n    ]\r\n}",
+							"raw": "{\r\n    \"usuario\":{\r\n        \"id\": 5,\r\n        \"primerNombre\": \"Diego\",\r\n        \"segundoNombre\": \"\",\r\n        \"primerApellido\": \"Briñez\",\r\n        \"segundoApellido\": \"\",\r\n        \"celular\": 3152657485,\r\n        \"correo\": \"pumba@gmail.com\",\r\n        \"createAt\": \"2023-12-18T15:25:18.383+0000\"\r\n    },\r\n    \"productos\":[\r\n        {\r\n            \"id\": 5,\r\n            \"nombre\": \"Air Jordan SE\",\r\n            \"cantidad\": 10,\r\n            \"precio\": 1000000,\r\n            \"creatAt\": \"2023-11-22T22:02:38.715+0000\",\r\n            \"fotoHashCode\": 775778702\r\n        },\r\n        {\r\n            \"id\": 6,\r\n            \"nombre\": \"Air Max 270\",\r\n            \"cantidad\": 10,\r\n            \"precio\": 850000,\r\n            \"creatAt\": \"2023-11-22T22:03:25.598+0000\",\r\n            \"fotoHashCode\": 1113219013\r\n        }\r\n    ],\r\n    \"items\":[\r\n        {\r\n            \"producto\":{\r\n                \"id\": 5,\r\n                \"nombre\": \"Air Jordan SE\",\r\n                \"cantidad\": 10,\r\n                \"precio\": 1000000,\r\n                \"creatAt\": \"2023-11-22T22:02:38.715+0000\",\r\n                \"fotoHashCode\": 775778702\r\n                },\r\n            \"cantidad\":3\r\n        },\r\n        {\r\n            \"producto\":{\r\n                \"id\": 6,\r\n                \"nombre\": \"Air Max 270\",\r\n                \"cantidad\": 10,\r\n                \"precio\": 850000,\r\n                \"creatAt\": \"2023-11-22T22:03:25.598+0000\",\r\n                \"fotoHashCode\": 1113219013\r\n            },\r\n            \"cantidad\":2\r\n        }\r\n    ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -569,7 +559,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"usuario\":{\r\n        \"id\": 3,\r\n        \"primerNombre\": \"Karen\",\r\n        \"segundoNombre\": \"\",\r\n        \"primerApellido\": \"Rubiano\",\r\n        \"segundoApellido\": \"Torres\",\r\n        \"celular\": 3183852266,\r\n        \"correo\": \"krn@gmail.com\"\r\n    },\r\n    \"productos\":[\r\n        {\r\n            \"id\": 18,\r\n            \"nombre\": \"Zapatillas MAC80\",\r\n            \"cantidad\": 2,\r\n            \"precio\": 4600000\r\n        },\r\n        {\r\n            \"id\": 19,\r\n            \"nombre\": \"Zapatillas Gucci Run Hombre\",\r\n            \"cantidad\": 2,\r\n            \"precio\": 4000000\r\n        }\r\n    ],\r\n    \"items\":[\r\n        {\r\n            \"producto\":{\r\n                \"id\":18\r\n            },\r\n            \"cantidad\":1\r\n        },\r\n        {\r\n            \"producto\":{\r\n                \"id\":19\r\n            },\r\n            \"cantidad\":2\r\n        }\r\n    ]\r\n}",
+							"raw": "{\r\n    \"user\":{\r\n        \"id\": 1,\r\n        \"firtsName\": \"Diego\",\r\n        \"middleName\": \"\",\r\n        \"lastName\": \"Briñez\",\r\n        \"seconLastName\": \"\",\r\n        \"email\": \"pumba@gmail.com\",\r\n        \"createAt\": \"2023-12-30T22:46:07.753+0000\",\r\n        \"phoneNumber\": 3152657485\r\n    },\r\n    \"products\":[\r\n        {\r\n            \"id\": 1,\r\n            \"productName\": \"Tenis Adizero SL\",\r\n            \"price\": 700000,\r\n            \"creatAt\": \"2023-12-30T22:55:45.475+0000\",\r\n            \"photoHashCode\": 1116394745\r\n        },\r\n        {\r\n            \"id\": 2,\r\n            \"productName\": \"Tenis Superstar\",\r\n            \"price\": 300000,\r\n            \"creatAt\": \"2023-12-30T22:56:44.630+0000\",\r\n            \"photoHashCode\": 84852265\r\n        }\r\n    ],\r\n    \"items\":[\r\n        {\r\n            \"product\":{\r\n                \"id\": 1,\r\n                \"productName\": \"Tenis Adizero SL\",\r\n                \"price\": 700000,\r\n                \"creatAt\": \"2023-12-30T22:55:45.475+0000\",\r\n                \"photoHashCode\": 1116394745\r\n                },\r\n            \"quantity\":3\r\n        },\r\n        {\r\n            \"product\":{\r\n                \"id\": 2,\r\n                \"productName\": \"Tenis Superstar\",\r\n                \"price\": 300000,\r\n                \"creatAt\": \"2023-12-30T22:56:44.630+0000\",\r\n                \"photoHashCode\": 84852265\r\n            },\r\n            \"quantity\":2\r\n        }\r\n    ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -577,7 +567,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/carrito/editar/10",
+							"raw": "localhost:8080/carrito/editar/1",
 							"host": [
 								"localhost"
 							],
@@ -585,7 +575,7 @@
 							"path": [
 								"carrito",
 								"editar",
-								"10"
+								"1"
 							]
 						}
 					},
@@ -597,7 +587,7 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/carrito/eliminar/14",
+							"raw": "localhost:8080/carrito/eliminar/16",
 							"host": [
 								"localhost"
 							],
@@ -605,7 +595,7 @@
 							"path": [
 								"carrito",
 								"eliminar",
-								"14"
+								"16"
 							]
 						}
 					},
@@ -617,14 +607,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/carrito/15/total",
+							"raw": "localhost:8080/carrito/1/total",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
 								"carrito",
-								"15",
+								"1",
 								"total"
 							]
 						}
@@ -637,7 +627,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/carrito/factura/15",
+							"raw": "localhost:8080/carrito/factura/1",
 							"host": [
 								"localhost"
 							],
@@ -645,7 +635,7 @@
 							"path": [
 								"carrito",
 								"factura",
-								"15"
+								"1"
 							]
 						}
 					},

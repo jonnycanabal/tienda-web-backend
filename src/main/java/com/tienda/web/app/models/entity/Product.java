@@ -22,30 +22,25 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@Table(name = "productos")
-public class Producto {
+@Table(name = "products")
+public class Product {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	private String nombre;
+	private String productName;
 
-	private Integer cantidad;
-
-	private Integer precio;
+	private Integer price;
 
 	@ManyToOne
-	@JoinColumn(name = "marca_id")
-	private Marca marca;
+	@JoinColumn(name = "brand_id")
+	private Brand brand;
 
-	// Esta anotacion no es necesaria debido a que como es una relacion ManyToMany
-	// es bidireccional y ya esta establecida en Carrito
-	@ManyToMany(mappedBy = "productos")
-	@JsonIgnoreProperties("productos") // Esta anotacion ayuda a evitar bucles infinitos con la inforamcion al
-										// convertirla a JSON
+	@ManyToMany(mappedBy = "products")
+	@JsonIgnoreProperties("products") // Esta anotacion ayuda a evitar bucles infinitos con la inforamcion al convertirla a JSON
 	@JsonIgnore
-	private Set<Carrito> carritos = new HashSet<>();
+	private Set<ShoppingCart> shoppingCarts = new HashSet<>();
 
 	@Column(name = "creat_at")
 	@Temporal(TemporalType.TIMESTAMP)
@@ -59,11 +54,11 @@ public class Producto {
 	@Lob
 	@Column(columnDefinition = "LONGBLOB")
 	@JsonIgnore
-	public byte[] foto;
+	public byte[] photo;
 
-	public Integer getFotoHashCode() {
+	public Integer getPhotoHashCode() {
 
-		return (this.foto != null) ? this.foto.hashCode() : null;
+		return (this.photo != null) ? this.photo.hashCode() : null;
 	}
 
 	public Long getId() {
@@ -74,28 +69,20 @@ public class Producto {
 		this.id = id;
 	}
 
-	public String getNombre() {
-		return nombre;
+	public String getProductName() {
+		return productName;
 	}
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
+	public void setProductName(String productName) {
+		this.productName = productName;
 	}
 
-	public Integer getCantidad() {
-		return cantidad;
+	public Integer getPrice() {
+		return price;
 	}
 
-	public void setCantidad(Integer cantidad) {
-		this.cantidad = cantidad;
-	}
-
-	public Integer getPrecio() {
-		return precio;
-	}
-
-	public void setPrecio(Integer precio) {
-		this.precio = precio;
+	public void setPrice(Integer price) {
+		this.price = price;
 	}
 
 	public Date getCreatAt() {
@@ -106,12 +93,12 @@ public class Producto {
 		this.creatAt = creatAt;
 	}
 
-	public byte[] getFoto() {
-		return foto;
+	public byte[] getPhoto() {
+		return photo;
 	}
 
-	public void setFoto(byte[] foto) {
-		this.foto = foto;
+	public void setPhoto(byte[] photo) {
+		this.photo = photo;
 	}
 
 	// vamos a sobreescribir el metodo equals
@@ -123,31 +110,31 @@ public class Producto {
 			return true;
 		}
 		// validar que los objetos sean instancia de producto
-		if (!(obj instanceof Producto)) {
+		if (!(obj instanceof Product)) {
 			return false;
 		}
 
 		// ahora necesitamos comparar los ID y se necesita hacer un cash del tipo
 		// producto
-		Producto p = (Producto) obj;
+		Product p = (Product) obj;
 
 		return this.id != null && this.id.equals(p.getId());
 	}
 
-	public Marca getMarca() {
-		return marca;
+	public Brand getBrand() {
+		return brand;
 	}
 
-	public void setMarca(Marca marca) {
-		this.marca = marca;
+	public void setBrand(Brand brand) {
+		this.brand = brand;
 	}
 
-	public Set<Carrito> getCarritos() {
-		return carritos;
+	public Set<ShoppingCart> getShoppingCarts() {
+		return shoppingCarts;
 	}
 
-	public void setCarritos(Set<Carrito> carritos) {
-		this.carritos = carritos;
+	public void setShoppingCarts(Set<ShoppingCart> shoppingCarts) {
+		this.shoppingCarts = shoppingCarts;
 	}
 
 }
