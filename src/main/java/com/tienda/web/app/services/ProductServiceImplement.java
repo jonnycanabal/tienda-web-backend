@@ -6,37 +6,39 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.tienda.web.app.models.entity.Usuario;
-import com.tienda.web.app.models.repository.UsuarioRepository;
+import com.tienda.web.app.models.entity.Product;
+import com.tienda.web.app.models.repository.ProductRepository;
 
 @Service
-public class UsuarioServiceImplement implements UsuarioService {
+public class ProductServiceImplement implements ProductService {
 
 	@Autowired
-	private UsuarioRepository repository;
+	private ProductRepository repository;
 
 	@Override
-	public Iterable<Usuario> finAll() {
+	public Iterable<Product> finAll() {
+
 		return repository.findAll();
 	}
 
 	@Override
-	public Optional<Usuario> finById(Long id) {
+	public Optional<Product> finById(Long id) {
+
 		return repository.findById(id);
 	}
 
 	@Override
 	@Transactional
-	public Usuario save(Usuario usuario) {
+	public Product save(Product product) {
 
-		return repository.save(usuario);
+		return repository.save(product);
 	}
 
 	@Override
 	@Transactional
 	public void deleteById(Long id) {
-		repository.deleteById(id);
 
+		repository.deleteById(id);
 	}
 
 }

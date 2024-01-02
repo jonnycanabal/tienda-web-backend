@@ -6,32 +6,32 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.tienda.web.app.models.entity.ItemCarrito;
+import com.tienda.web.app.models.entity.CartItem;
 
 @Service
-public class ItemCarritoServiceImplement implements ItemCarritoService {
+public class CartItemServiceImplement implements CartItemService {
 
 	@Autowired
-	private ItemCarritoService service;
+	private CartItemService service;
 
 	@Override
-	public Iterable<ItemCarrito> finAll() {
+	public Iterable<CartItem> finAll() {
 
 		return service.finAll();
 
 	}
 
 	@Override
-	public Optional<ItemCarrito> finById(Long id) {
+	public Optional<CartItem> finById(Long id) {
 
 		return service.finById(id);
 	}
 
 	@Override
 	@Transactional
-	public ItemCarrito save(ItemCarrito itemCarrito) {
+	public CartItem save(CartItem cartItem) {
 
-		return service.save(itemCarrito);
+		return service.save(cartItem);
 	}
 
 	@Override
