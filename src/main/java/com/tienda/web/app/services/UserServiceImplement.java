@@ -1,12 +1,17 @@
 package com.tienda.web.app.services;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.tienda.web.app.models.entity.Role;
 import com.tienda.web.app.models.entity.User;
+import com.tienda.web.app.models.repository.RoleRepository;
 import com.tienda.web.app.models.repository.UserRepository;
 
 //Implementamos la Interfaz "service" y se define el como de los metodos segun nuestras necesidades
@@ -24,6 +29,12 @@ public class UserServiceImplement implements UserService {
 	// asi se puede utilizarlo y realizar los registros
 	@Autowired
 	private UserRepository repository;
+	
+	@Autowired
+	private RoleRepository roleRepository;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	@Override
 	public Iterable<User> finAll() {
@@ -40,7 +51,29 @@ public class UserServiceImplement implements UserService {
 	@Override
 	@Transactional
 	public User save(User user) {
+		
+		Optional<Role> optionalRoleUser = roleRepository.findByName("ROLE_USER");
+		
+		List<Role> roles = new ArrayList<>();
+		
+		//si esta presente se agrega el rol de usuario
+		optionalRoleUser.ifPresent(role -> roles.add(role));
+		
+		//si is admin es true se le va asignar "ROLE_ADMIN"
+		if(user.isAdmin()) {
+			
+			Optional<Role> optionalRoleAdmin = roleRepository.findByName("ROLE_ADMIN");
+			
+			roles.clear();
+			
+			optionalRoleAdmin.ifPresent(roles::add);
+		}
 
+		//pasamos los roles al usuario
+		user.setRoles(roles);
+		
+		//aqui decodificamos el password que viene del request
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		return repository.save(user);
 	}
 
@@ -50,6 +83,13 @@ public class UserServiceImplement implements UserService {
 
 		repository.deleteById(id);
 
+	}
+
+	@Override
+	@Transactional
+	public boolean existsByUsername(String username) {
+
+		return repository.existsByUsername(username);
 	}
 
 }

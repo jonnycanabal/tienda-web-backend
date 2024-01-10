@@ -1,10 +1,18 @@
 package com.tienda.web.app.controllers;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 
+import javax.persistence.EntityNotFoundException;
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tienda.web.app.models.entity.ShoppingCart;
 import com.tienda.web.app.models.entity.User;
+import com.tienda.web.app.models.repository.ShoppingCartRepository;
 import com.tienda.web.app.services.UserService;
 
 /*
@@ -23,6 +32,8 @@ import com.tienda.web.app.services.UserService;
  * @RequestMpping, mapea una URL especifica, las solicitud tiene que comentar con la URL especificada
  * 
 */
+//puerto de Angular en este caso para el Cors - Esto no afecta e las pruebas den "POSTMAN" o "*" para cualquier ruta
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
 @RequestMapping("/usuario")
 public class UserController {
@@ -30,6 +41,9 @@ public class UserController {
 	// Importar la interfaz del Service para la interaccion y gestion de sus metodos
 	@Autowired
 	private UserService service;
+	
+	@Autowired
+	private ShoppingCartRepository shoppingCartRepository;
 
 	@GetMapping
 	public ResponseEntity<?> list() {
@@ -56,17 +70,57 @@ public class UserController {
 
 	// @RequestBody, el método se debe vincular al cuerpo de la solicitud HTTP
 	@PostMapping("/crear")
-	public ResponseEntity<?> create(@RequestBody User user) {
+	public ResponseEntity<?> create(@Valid @RequestBody User user, BindingResult result) {
+		
+		if(result.hasFieldErrors()) {
+			return validation(result);
+		}
 
 		ShoppingCart cart = new ShoppingCart();
 		cart.setUser(user);
 
 		user.setShoppingCart(cart);
 
+		user.setEnabled(true);
+		
+		user.setAdmin(false);
+		
 		User newUser = service.save(user);
 		
 		return ResponseEntity.status(HttpStatus.CREATED).body(newUser);
 	}
+	
+	//Metodo duplicado con el cual se podra crear un admin, mientras que el create solo "ROLE_USER"
+	@PostMapping("/crear/admin")
+	public ResponseEntity<?> createAdmin(@Valid @RequestBody User user, BindingResult result) {
+		
+		if(result.hasFieldErrors()) {
+			return validation(result);
+		}
+
+		ShoppingCart cart = new ShoppingCart();
+		cart.setUser(user);
+
+		user.setShoppingCart(cart);
+
+		user.setEnabled(true);
+		
+		User newUser = service.save(user);
+		
+		return ResponseEntity.status(HttpStatus.CREATED).body(newUser);
+	}
+
+	//Metodo para validation en el "create"
+	private ResponseEntity<?> validation(BindingResult result) {
+		Map<String, String> errors = new HashMap<>();
+		
+		result.getFieldErrors().forEach(err -> {
+			errors.put(err.getField(),"El campo" + err.getField() + " " + err.getDefaultMessage());
+		});
+		
+		return ResponseEntity.badRequest().body(errors);
+	}
+	
 
 	// Recordar, referenciar el usuario y id para asi saber cual se va editar
 	@PutMapping("/editar/{id}")
@@ -106,6 +160,22 @@ public class UserController {
 		if (user.getEmail() != null) {
 			userToModify.setEmail(user.getEmail());
 		}
+		
+		if(user.getUsername() != null) {
+			userToModify.setUsername(user.getUsername());
+		}
+		
+		if(user.getPassword() != null) {
+			userToModify.setPassword(user.getPassword());
+		}
+		
+		if(user.isEnabled() != userToModify.isEnabled()) {
+			userToModify.setEnabled(user.isEnabled());
+		}
+		
+		if(user.isAdmin() != userToModify.isAdmin()) {
+			userToModify.setAdmin(user.isAdmin());
+		}
 
 		// persistimos o guardamos con nuestro service.save antes de pasarlo al body
 		User updatedUser = service.save(userToModify);
@@ -116,9 +186,34 @@ public class UserController {
 	@DeleteMapping("/eliminar/{id}")
 	public ResponseEntity<?> delate(@PathVariable Long id) {
 
-		service.deleteById(id);
+		Optional<User> currentUser = service.finById(id);
+		
+		if(currentUser.isEmpty()) {
+			return ResponseEntity.notFound().build();
+		}
+		
+		//Elimina el carrito para romper la relacion
+		
+		if(currentUser.get().getShoppingCart() != null) {
+			// Obtener el ID del carrito asociado al usuario
+			Long idShoppingCart = currentUser.get().getShoppingCart().getId();
+			
+			try {
+				shoppingCartRepository.deleteById(idShoppingCart);
+			} catch (EmptyResultDataAccessException  e) {
 
-		return ResponseEntity.noContent().build();
+				System.out.println("El carrito de compras con ID " + idShoppingCart + " no existe!");
+			}
+		}
+		
+		try {
+			//Elimina el Usuario
+			service.deleteById(id);
+			return ResponseEntity.noContent().build();
+		} catch (EntityNotFoundException e) {
+			return ResponseEntity.ok().body("El usuario " + currentUser.get().getFirtsName() + " Se elimino correctamente!");
+		}
+		
 	}
 
 }
