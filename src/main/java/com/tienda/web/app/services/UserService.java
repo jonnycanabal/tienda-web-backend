@@ -30,4 +30,7 @@ public interface UserService {
 
 	/* El void no retorna nada y elimina por el id */
 	public void deleteById(Long id);
+	
+	//validar si existe el User con el username
+	boolean existsByUsername(String username);
 }

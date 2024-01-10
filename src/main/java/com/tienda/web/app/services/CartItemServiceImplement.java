@@ -2,7 +2,6 @@ package com.tienda.web.app.services;
 
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,7 +10,6 @@ import com.tienda.web.app.models.entity.CartItem;
 @Service
 public class CartItemServiceImplement implements CartItemService {
 
-	@Autowired
 	private CartItemService service;
 
 	@Override
