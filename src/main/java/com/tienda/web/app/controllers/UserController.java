@@ -51,17 +51,6 @@ public class UserController {
 
 		return ResponseEntity.ok().body(service.finAll());
 	}
-	
-//	@GetMapping("/buscar")
-//	public ResponseEntity<User> findUsers(@RequestParam String firtsName,
-//										@RequestParam String middleName,
-//										@RequestParam String lastName,
-//										@RequestParam String seconLastName){
-//		
-//		Optional<User> currentUser = service.findByFirtsNameOrMiddleNameOrLastNameOrSeconLastName(firtsName, middleName, lastName, seconLastName);
-//		
-//		return ResponseEntity.ok().body(currentUser.get());
-//	}
 
 	@PostMapping("/buscar")
 	public ResponseEntity<?> findUsers(@RequestBody Map<String, String> requestParams){
