@@ -30,8 +30,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import com.tienda.web.app.springbootcrud.validation.ExistsByUsername;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
 @Table(name = "users") // Se le da un nombre a la tabla, de lo contrario seria el mismo de la clase
+@Getter
+@Setter
 public class User {
 
 	@Id // Llave primaria
@@ -98,118 +103,6 @@ public class User {
 		this.createAt = new Date();
 	}
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getFirtsName() {
-		return firtsName;
-	}
-
-	public void setFirtsName(String firtsName) {
-		this.firtsName = firtsName;
-	}
-
-	public String getMiddleName() {
-		return middleName;
-	}
-
-	public void setMiddleName(String middleName) {
-		this.middleName = middleName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public String getSeconLastName() {
-		return seconLastName;
-	}
-
-	public void setSeconLastName(String seconLastName) {
-		this.seconLastName = seconLastName;
-	}
-
-	public String getPhoneNumber() {
-		return PhoneNumber;
-	}
-
-	public void setPhoneNumber(String PhoneNumber) {
-		this.PhoneNumber = PhoneNumber;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	public Date getCreateAt() {
-		return createAt;
-	}
-
-	public void setCreateAt(Date createAt) {
-		this.createAt = createAt;
-	}
-
-	public ShoppingCart getShoppingCart() {
-		return shoppingCart;
-	}
-
-	public void setShoppingCart(ShoppingCart shoppingCart) {
-		this.shoppingCart = shoppingCart;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public List<Role> getRoles() {
-		return roles;
-	}
-
-	public void setRoles(List<Role> roles) {
-		this.roles = roles;
-	}
-
-	public boolean isAdmin() {
-		return admin;
-	}
-
-	public void setAdmin(boolean admin) {
-		this.admin = admin;
-	}
-
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-	public void setEnabled(boolean enabled) {
-		this.enabled = enabled;
-	}
-
 	@Override
 	public int hashCode() {
 		return Objects.hash(id, username);
@@ -227,6 +120,4 @@ public class User {
 		return Objects.equals(id, other.id) && Objects.equals(username, other.username);
 	}
 
-	
-	
 }

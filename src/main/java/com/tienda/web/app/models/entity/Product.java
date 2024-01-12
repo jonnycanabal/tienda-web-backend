@@ -7,6 +7,9 @@ import java.util.Set;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,6 +26,8 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "products")
+@Getter
+@Setter
 public class Product {
 
 	@Id
@@ -61,46 +66,6 @@ public class Product {
 		return (this.photo != null) ? this.photo.hashCode() : null;
 	}
 
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getProductName() {
-		return productName;
-	}
-
-	public void setProductName(String productName) {
-		this.productName = productName;
-	}
-
-	public Integer getPrice() {
-		return price;
-	}
-
-	public void setPrice(Integer price) {
-		this.price = price;
-	}
-
-	public Date getCreatAt() {
-		return creatAt;
-	}
-
-	public void setCreatAt(Date creatAt) {
-		this.creatAt = creatAt;
-	}
-
-	public byte[] getPhoto() {
-		return photo;
-	}
-
-	public void setPhoto(byte[] photo) {
-		this.photo = photo;
-	}
-
 	// vamos a sobreescribir el metodo equals
 	// Este metodo es importante para eliminar un objeto de la relacion
 	@Override
@@ -119,22 +84,6 @@ public class Product {
 		Product p = (Product) obj;
 
 		return this.id != null && this.id.equals(p.getId());
-	}
-
-	public Brand getBrand() {
-		return brand;
-	}
-
-	public void setBrand(Brand brand) {
-		this.brand = brand;
-	}
-
-	public Set<ShoppingCart> getShoppingCarts() {
-		return shoppingCarts;
-	}
-
-	public void setShoppingCarts(Set<ShoppingCart> shoppingCarts) {
-		this.shoppingCarts = shoppingCarts;
 	}
 
 }

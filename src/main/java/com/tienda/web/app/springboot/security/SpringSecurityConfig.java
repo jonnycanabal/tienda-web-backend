@@ -45,13 +45,13 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests(requests -> requests
-                .antMatchers("/h2-console/**", "/usuario", "/usuario/crear").permitAll()
-                .antMatchers(HttpMethod.GET, "/usuario", "/usuario/ver/{id}").hasAnyRole("USER", "ADMIN")
+                .antMatchers("/h2-console/**", "/usuario", "/usuario/crear", "/marca/buscar").permitAll()
+                .antMatchers(HttpMethod.GET, "/usuario", "/usuario/ver/{id}", "/usuario/buscar").hasAnyRole("USER", "ADMIN")
                 .antMatchers(HttpMethod.POST, "/usuario/crear/admin").hasRole("ADMIN")
                 .antMatchers(HttpMethod.PUT, "/usuario/editar/{id}").hasRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/usuario/eliminar/{id}").hasRole("ADMIN")
                 //
-                .antMatchers(HttpMethod.GET, "/producto", "/producto/ver/{id}").hasAnyRole("USER", "ADMIN")
+                .antMatchers(HttpMethod.GET, "/producto", "/producto/ver/{id}", "/producto/buscar").hasAnyRole("USER", "ADMIN")
                 .antMatchers(HttpMethod.POST, "/producto/crear", "/producto/crear-con-foto").hasRole("ADMIN")
                 .antMatchers(HttpMethod.PUT, "/producto/editar/{id}", "/producto/editar-con-foto/{id}").hasRole("ADMIN")
                 .antMatchers(HttpMethod.DELETE, "/producto/eliminar/{id}").hasRole("ADMIN")

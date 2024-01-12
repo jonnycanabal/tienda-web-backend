@@ -92,4 +92,11 @@ public class UserServiceImplement implements UserService {
 		return repository.existsByUsername(username);
 	}
 
+	@Override
+	public List<User> findByFirtsNameContainingIgnoreCaseOrMiddleNameIgnoreCaseOrLastNameIgnoreCaseOrSeconLastNameIgnoreCase(String firtsName, String middleName,
+			String lastName, String seconLastName) {
+		
+		return repository.findByFirtsNameContainingIgnoreCaseOrMiddleNameIgnoreCaseOrLastNameIgnoreCaseOrSeconLastNameIgnoreCase(firtsName, middleName, lastName, seconLastName);
+	}
+
 }

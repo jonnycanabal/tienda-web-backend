@@ -6,6 +6,9 @@ import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -21,6 +24,8 @@ import javax.persistence.TemporalType;
 
 @Entity
 @Table(name = "brands")
+@Getter
+@Setter
 public class Brand {
 
 	@Id
@@ -58,46 +63,6 @@ public class Brand {
 	// Contructor para inicializar variables en este caso productos
 	public Brand() {
 		this.products = new ArrayList<>();
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getBrandName() {
-		return brandName;
-	}
-
-	public void setBrandName(String brandName) {
-		this.brandName = brandName;
-	}
-
-	public Date getCreateAt() {
-		return createAt;
-	}
-
-	public void setCreateAt(Date createAt) {
-		this.createAt = createAt;
-	}
-
-	public byte[] getPhoto() {
-		return photo;
-	}
-
-	public void setPhoto(byte[] photo) {
-		this.photo = photo;
-	}
-
-	public List<Product> getProducts() {
-		return products;
-	}
-
-	public void setProducts(List<Product> products) {
-		this.products = products;
 	}
 
 	// metodo para agregar productos 1 a 1

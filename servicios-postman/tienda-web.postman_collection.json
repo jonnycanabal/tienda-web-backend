@@ -12,6 +12,9 @@
 				{
 					"name": "Listar Usuarios",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -48,13 +51,51 @@
 					"response": []
 				},
 				{
-					"name": "Crear Usuario",
+					"name": "Buscar Usuario",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"firtsName\": \"Diego\",\r\n    \"middleName\": \"\",\r\n    \"lastName\": \"Briñez\",\r\n    \"seconLastName\": \"\",\r\n    \"phoneNumber\": 3152657485,\r\n    \"email\": \"pumba@gmail.com\"\r\n}",
+							"raw": "{\r\n        \"firtsName\": \"3\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/usuario/buscar",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"usuario",
+								"buscar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Usuario",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwdW1iYSIsImF1dGhvcml0aWVzIjoiW3tcImF1dGhvcml0eVwiOlwiUk9MRV9VU0VSXCJ9XSIsInVzZXJuYW1lIjoicHVtYmEiLCJleHAiOjE3MDQ5MTY4MTEsImlhdCI6MTcwNDkxMzIxMX0.k89we_v9n4pVbKK5niW36FhuOZR-gV0brHRlLv0kE_U",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firtsName\": \"Diego3\",\r\n    \"middleName\": \"\",\r\n    \"lastName\": \"Briñez3\",\r\n    \"seconLastName\": \"\",\r\n    \"phoneNumber\": \"3152657485\",\r\n    \"email\": \"pumba@gmail.com\",\r\n    \"username\": \"pumba4\",\r\n    \"password\": \"12345\",\r\n    \"admin\": true\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -78,11 +119,21 @@
 				{
 					"name": "Editar Usuario por ID",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwdW1iYTMiLCJhdXRob3JpdGllcyI6Ilt7XCJhdXRob3JpdHlcIjpcIlJPTEVfQURNSU5cIn1dIiwidXNlcm5hbWUiOiJwdW1iYTMiLCJleHAiOjE3MDQ5MTcxOTQsImlhdCI6MTcwNDkxMzU5NH0.zWEz34XItQRe1Ybk2YnyS1FWVRp1KCLV2RGXiSarmR8",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"firtsName\": \"Diego\",\r\n    \"middleName\": \"\",\r\n    \"lastName\": \"Briñez\",\r\n    \"seconLastName\": \"\",\r\n    \"phoneNumber\": 3152657485,\r\n    \"email\": \"pumba@gmail.com\"\r\n}",
+							"raw": "{\r\n    \"firtsName\": \"Diego\",\r\n    \"middleName\": \"\",\r\n    \"lastName\": \"Briñez\",\r\n    \"seconLastName\": \"\",\r\n    \"phoneNumber\": 3152657485,\r\n    \"email\": \"pumba@gmail.com\",\r\n    \"username\": \"pumba2\",\r\n    \"password\": \"123456\",\r\n    \"enabled\": true\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -90,7 +141,7 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/usuario/editar/1",
+							"raw": "localhost:8080/usuario/editar/5",
 							"host": [
 								"localhost"
 							],
@@ -98,7 +149,7 @@
 							"path": [
 								"usuario",
 								"editar",
-								"1"
+								"5"
 							]
 						}
 					},
@@ -107,10 +158,20 @@
 				{
 					"name": "Eliminar usuario por ID",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwdW1iYTMiLCJhdXRob3JpdGllcyI6Ilt7XCJhdXRob3JpdHlcIjpcIlJPTEVfQURNSU5cIn1dIiwidXNlcm5hbWUiOiJwdW1iYTMiLCJleHAiOjE3MDQ5MTc4MzksImlhdCI6MTcwNDkxNDIzOX0.BwcZABxCMSvzCK6f-MrAUUISzdrj4AvIfrR1Ewk4HBU",
+									"type": "string"
+								}
+							]
+						},
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/usuario/eliminar/2",
+							"raw": "localhost:8080/usuario/eliminar/12",
 							"host": [
 								"localhost"
 							],
@@ -118,7 +179,7 @@
 							"path": [
 								"usuario",
 								"eliminar",
-								"2"
+								"12"
 							]
 						}
 					},
@@ -132,6 +193,16 @@
 				{
 					"name": "Listar Productos",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwdW1iYTMiLCJhdXRob3JpdGllcyI6Ilt7XCJhdXRob3JpdHlcIjpcIlJPTEVfQURNSU5cIn1dIiwidXNlcm5hbWUiOiJwdW1iYTMiLCJleHAiOjE3MDUwMzUzMzYsImlhdCI6MTcwNTAzMTczNn0.t508sP7UngV2ZHVt5fM9vdGAmQYtLPJYsoGB7czMviY",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -168,8 +239,46 @@
 					"response": []
 				},
 				{
+					"name": "Buscar Producto",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productName\": \"Zapatillas Ziane\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/producto/buscar",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"producto",
+								"buscar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Crear producto con foto",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwdW1iYTMiLCJhdXRob3JpdGllcyI6Ilt7XCJhdXRob3JpdHlcIjpcIlJPTEVfQURNSU5cIn1dIiwidXNlcm5hbWUiOiJwdW1iYTMiLCJleHAiOjE3MDQ5MTgwNDksImlhdCI6MTcwNDkxNDQ0OX0.61_VzT9myt60svZ7b430mxowJ9FtOuO08SJrZ-43LLI",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -188,7 +297,7 @@
 								{
 									"key": "file",
 									"type": "file",
-									"src": "/C:/Users/mao_9/Pictures/tienda-web/lacoste/lacoste-zapatillas-ziane.jpg"
+									"src": "/C:/Users/mao_9/Pictures/tienda-web/lacoste/logo-lacoste.png"
 								}
 							]
 						},
@@ -284,6 +393,9 @@
 				{
 					"name": "Listar Marcas",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -480,6 +592,34 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Buscar Marca",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"brandName\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/marca/buscar",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"marca",
+								"buscar"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -489,6 +629,16 @@
 				{
 					"name": "Listar carritos",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJwdW1iYTMiLCJhdXRob3JpdGllcyI6Ilt7XCJhdXRob3JpdHlcIjpcIlJPTEVfQURNSU5cIn1dIiwidXNlcm5hbWUiOiJwdW1iYTMiLCJleHAiOjE3MDQ5MTcxOTQsImlhdCI6MTcwNDkxMzU5NH0.zWEz34XItQRe1Ybk2YnyS1FWVRp1KCLV2RGXiSarmR8",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
@@ -636,6 +786,38 @@
 								"carrito",
 								"factura",
 								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"item": [
+				{
+					"name": "New Request",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"pumba3\",\r\n    \"password\": \"12345\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/login",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"login"
 							]
 						}
 					},

@@ -1,6 +1,7 @@
 package com.tienda.web.app.models.repository;
 
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.repository.CrudRepository;
@@ -14,5 +15,8 @@ public interface UserRepository extends CrudRepository<User, Long> {
 	
 	//consulta personalidad para buscar por nombre
 	Optional<User> findByUsername(String username);
+	
+	List<User> findByFirtsNameContainingIgnoreCaseOrMiddleNameIgnoreCaseOrLastNameIgnoreCaseOrSeconLastNameIgnoreCase(
+			String firtsName, String middleName, String lastName, String seconLastName);
 
 }

@@ -23,8 +23,13 @@ import javax.persistence.TemporalType;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
 @Table(name = "shoppingCarts")
+@Getter
+@Setter
 public class ShoppingCart {
 
 	@Id
@@ -56,46 +61,6 @@ public class ShoppingCart {
 	// Metodo para calcular el total de los productos del carrito
 	public double calculateTotal() {
 		return items.stream().mapToDouble(item -> item.getProduct().getPrice() * item.getQuantity()).sum();
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public Date getCreatAt() {
-		return creatAt;
-	}
-
-	public void setCreatAt(Date creatAt) {
-		this.creatAt = creatAt;
-	}
-
-	public User getUser() {
-		return user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
-	public Set<Product> getProducts() {
-		return products;
-	}
-
-	public void setProducts(Set<Product> products) {
-		this.products = products;
-	}
-
-	public Set<CartItem> getItems() {
-		return items;
-	}
-
-	public void setItems(Set<CartItem> items) {
-		this.items = items;
 	}
 
 }

@@ -1,5 +1,6 @@
 package com.tienda.web.app.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,12 @@ public class ProductServiceImplement implements ProductService {
 	public void deleteById(Long id) {
 
 		repository.deleteById(id);
+	}
+
+	@Override
+	public List<Product> findByProductNameContainingIgnoreCase(String productName) {
+
+		return repository.findByProductNameContainingIgnoreCase(productName);
 	}
 
 }

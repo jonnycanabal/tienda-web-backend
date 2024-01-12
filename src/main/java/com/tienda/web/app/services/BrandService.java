@@ -1,5 +1,6 @@
 package com.tienda.web.app.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.tienda.web.app.models.entity.Brand;
@@ -15,4 +16,6 @@ public interface BrandService {
 	public Brand save(Brand brand);
 
 	public void deleteById(Long id);
+	
+	public List<Brand> findByBrandNameContainingIgnoreCase (String brandName);
 }
