@@ -1,6 +1,7 @@
 package com.tienda.web.app.controllers;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -50,7 +51,35 @@ public class UserController {
 
 		return ResponseEntity.ok().body(service.finAll());
 	}
+	
+//	@GetMapping("/buscar")
+//	public ResponseEntity<User> findUsers(@RequestParam String firtsName,
+//										@RequestParam String middleName,
+//										@RequestParam String lastName,
+//										@RequestParam String seconLastName){
+//		
+//		Optional<User> currentUser = service.findByFirtsNameOrMiddleNameOrLastNameOrSeconLastName(firtsName, middleName, lastName, seconLastName);
+//		
+//		return ResponseEntity.ok().body(currentUser.get());
+//	}
 
+	@PostMapping("/buscar")
+	public ResponseEntity<?> findUsers(@RequestBody Map<String, String> requestParams){
+		String firtsName = requestParams.get("firtsName");
+		String middleName = requestParams.get("middleName");
+		String lastName = requestParams.get("lastName");
+		String seconLastName = requestParams.get("seconLastName");
+		
+		List<User> currentUser = service.findByFirtsNameContainingIgnoreCaseOrMiddleNameIgnoreCaseOrLastNameIgnoreCaseOrSeconLastNameIgnoreCase(firtsName, middleName, lastName, seconLastName);
+		
+		if(currentUser.isEmpty()) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("El usuario no existe");
+		}
+		
+		return ResponseEntity.ok().body(currentUser);
+		
+	}
+	
 	// Recuerda dar una ruta a tus peticiones
 	// @PathVariable, permite extraer valores de nuestra variable a la URL y
 	// mapearlos al parametro del metodo
@@ -67,6 +96,7 @@ public class UserController {
 
 		return ResponseEntity.ok().body(currentUser.get());
 	}
+	
 
 	// @RequestBody, el método se debe vincular al cuerpo de la solicitud HTTP
 	@PostMapping("/crear")

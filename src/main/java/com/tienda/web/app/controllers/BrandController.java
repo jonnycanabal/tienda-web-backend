@@ -2,6 +2,7 @@ package com.tienda.web.app.controllers;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,20 @@ public class BrandController {
 	public ResponseEntity<?> list() {
 
 		return ResponseEntity.ok().body(service.finAll());
+	}
+	
+	@PostMapping("/buscar")
+	public ResponseEntity<?> findBrand (@RequestBody Map<String, String> requestParam){
+		
+		String brandName = requestParam.get("brandName");
+		
+		List<Brand> currentBrand = service.findByBrandNameContainingIgnoreCase(brandName);
+		
+		if(currentBrand.isEmpty()) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("La marca no Existe!");
+		}
+		
+		return ResponseEntity.ok(currentBrand);
 	}
 
 	@GetMapping("/ver/{id}")

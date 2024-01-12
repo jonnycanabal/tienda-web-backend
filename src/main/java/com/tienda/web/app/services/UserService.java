@@ -1,5 +1,6 @@
 package com.tienda.web.app.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.tienda.web.app.models.entity.User;
@@ -33,4 +34,8 @@ public interface UserService {
 	
 	//validar si existe el User con el username
 	boolean existsByUsername(String username);
+	
+	public 	List<User> findByFirtsNameContainingIgnoreCaseOrMiddleNameIgnoreCaseOrLastNameIgnoreCaseOrSeconLastNameIgnoreCase(
+			String firtsName, String middleName, String lastName, String seconLastName);
+
 }

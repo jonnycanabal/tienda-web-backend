@@ -1,6 +1,8 @@
 package com.tienda.web.app.controllers;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +41,20 @@ public class ProductController {
 	public ResponseEntity<?> list() {
 
 		return ResponseEntity.ok().body(service.finAll());
+	}
+	
+	@PostMapping("/buscar")
+	public ResponseEntity<?> findProduct(@RequestBody Map<String, String> requestParams){
+		String productName = requestParams.get("productName");
+		
+		List<Product> currentProduct = service.findByProductNameContainingIgnoreCase(productName);
+		
+		if(currentProduct.isEmpty()) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("El producto no existe!");
+		}
+		
+		return ResponseEntity.ok(currentProduct);
+		
 	}
 
 	@GetMapping("/ver/{id}")

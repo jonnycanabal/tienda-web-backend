@@ -1,5 +1,6 @@
 package com.tienda.web.app.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,12 @@ public class BrandServiceImplement implements BrandService {
 	@Transactional
 	public void deleteById(Long id) {
 		repository.deleteById(id);
+	}
+
+	@Override
+	public List<Brand> findByBrandNameContainingIgnoreCase(String brandName) {
+
+		return repository.findByBrandNameContainingIgnoreCase(brandName);
 	}
 
 }

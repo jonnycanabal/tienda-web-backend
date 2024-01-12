@@ -9,7 +9,12 @@ import javax.persistence.ManyToOne;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
+@Getter
+@Setter
 public class CartItem {
 
 	@Id
@@ -26,37 +31,5 @@ public class CartItem {
 	private Product product;
 
 	private Integer quantity;
-
-	public Long getId() {
-		return Id;
-	}
-
-	public void setId(Long id) {
-		Id = id;
-	}
-
-	public ShoppingCart getShoppingCart() {
-		return shoppingCart;
-	}
-
-	public void setShoppingCart(ShoppingCart shoppingCart) {
-		this.shoppingCart = shoppingCart;
-	}
-
-	public Product getProduct() {
-		return product;
-	}
-
-	public void setProduct(Product product) {
-		this.product = product;
-	}
-
-	public Integer getQuantity() {
-		return quantity;
-	}
-
-	public void setQuantity(Integer quantity) {
-		this.quantity = quantity;
-	}
 
 }
