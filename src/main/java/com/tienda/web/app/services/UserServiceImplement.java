@@ -43,7 +43,7 @@ public class UserServiceImplement implements UserService {
 	}
 
 	@Override
-	public Optional<User> finById(Long id) {
+	public Optional<User> findById(Long id) {
 
 		return repository.findById(id);
 	}
