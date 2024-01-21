@@ -75,7 +75,7 @@ public class UserController {
 	@GetMapping("/ver/{id}")
 	public ResponseEntity<?> view(@PathVariable Long id) {
 
-		Optional<User> currentUser = service.finById(id);
+		Optional<User> currentUser = service.findById(id);
 
 		if (currentUser.isEmpty()) {
 			
@@ -146,7 +146,7 @@ public class UserController {
 	public ResponseEntity<?> edit(@RequestBody User user, @PathVariable Long id) {
 
 		// Se busca el usuario
-		Optional<User> currentUser = service.finById(id);
+		Optional<User> currentUser = service.findById(id);
 
 		if (currentUser.isEmpty()) {
 			return ResponseEntity.notFound().build();
@@ -205,7 +205,7 @@ public class UserController {
 	@DeleteMapping("/eliminar/{id}")
 	public ResponseEntity<?> delate(@PathVariable Long id) {
 
-		Optional<User> currentUser = service.finById(id);
+		Optional<User> currentUser = service.findById(id);
 		
 		if(currentUser.isEmpty()) {
 			return ResponseEntity.notFound().build();

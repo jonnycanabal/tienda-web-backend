@@ -22,7 +22,7 @@ public interface UserService {
 	 * valor podria o no existir y manejarlo de forma diferentes con un get y un
 	 * respectivo mensaje de la ausencia de algun dato.
 	 */
-	public Optional<User> finById(Long id);
+	public Optional<User> findById(Long id);
 
 	/*
 	 * retorna el objeto de tipo User, recibe User y lo guarda
