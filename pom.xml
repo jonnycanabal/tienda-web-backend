@@ -39,7 +39,8 @@
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
-		<!-- -->
+
+		<!-- dependiencia para configurar y usar PostgreSQL (Base de datos)-->
 		<!--
 		<dependency>
 			<groupId>com.mysql</groupId>
@@ -47,6 +48,21 @@
 			<scope>runtime</scope>
 		</dependency>
 		 -->
+
+		<!-- dependiencia para configurar y usar H2 (Base de datos)-->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
+		<!-- dependiencia para configurar y usar PostgreSQL (Base de datos)-->
+		<dependency>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -76,12 +92,6 @@
 			<artifactId>spring-boot-starter-json</artifactId>
 		</dependency>
 
-		<!-- dependiencia para configurar y usar H2 (Base de datos)-->
-		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
-			<scope>runtime</scope>
-		</dependency>
 
 		<!-- PdfBox - trabajar con PDF-->
 		<dependency>
