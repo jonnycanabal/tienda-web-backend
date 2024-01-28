@@ -49,7 +49,7 @@ public class Brand {
 	}
 
 	@Lob // permite persistir un large object - en este caso seria una imagen o archivos
-	@Column(columnDefinition = "LONGBLOB") // modifico el atributo del campo a "LongBlob" archivos mas grandes.
+//	@Column(columnDefinition = "LONGBLOB") // modifico el atributo del campo a "LongBlob" archivos mas grandes.
 	@JsonIgnore //ignora datos extensos para evitar mostarlos "Agregar dependencia en el POM"
 	public byte[] photo; // esto seria un arreglo de bytes para la foto
 

@@ -1,0 +1,40 @@
+#Version de Docker Compose
+version: '3.8'
+services:
+  #Configuracion del contenedor de la aplicacion
+  java_app:
+    container_name: "java_app" #Nombre del contenedor
+    build: . # Directorio para construir la imagen (usa el Dockerfile en el directorio actual)
+    ports:
+      - 8080:8080  #Mapea el puerto 8080 del host al puerto 8080 del contenedor
+    environment:
+      #Configuracion de la Base de datos
+      DATABASE_URL: jdbc:postgresql://postgres_db:5432/tienda-web-db
+      DATABASE_USERNAME: postgres
+      DATABASE_PASSWORD: 12345
+    networks:
+      - mitonetwork #Conectarse a la red personalizada
+    depends_on:
+      - postgres_db # Asegurar que el contenedor postgres_db esté funcionando antes de iniciar java_app
+
+  # Configuración del contenedor de PostgreSQL
+  postgres_db:
+    container_name: "postgres_db" # Nombre del contenedor
+    image: "postgres" # Usa la imagen oficial de PostgreSQL desde Docker Hub
+    ports:
+      - 5432:5432 # Mapea el puerto 5432 del host al puerto 5432 del contenedor
+    environment:
+      #Configuracion de la base de datos
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "12345"
+      POSTGRES_DB: "tienda-web-db"
+    networks:
+      - mitonetwork #Conectarse a la red personalizada
+#Configuracion de la red Personalizada
+networks:
+  mitonetwork:
+    driver: bridge
+
+#Configuracion necesaria para que puedan almacenarse los datos que se guardaron en dicha base de datos
+volumes:
+  postgres-data:

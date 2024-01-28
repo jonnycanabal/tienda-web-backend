@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
@@ -27,8 +29,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.tienda.web.app.models.entity.Brand;
 import com.tienda.web.app.models.entity.Product;
 import com.tienda.web.app.services.BrandService;
-
-import javax.validation.Valid;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -63,7 +63,7 @@ public class BrandController {
 
 		Optional<Brand> currentBrand = service.finbyId(id);
 
-		if (currentBrand.isEmpty()) {
+		if (!currentBrand.isPresent()) {
 
 			//return ResponseEntity.notFound().build();
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("El marca no Existe");
@@ -85,7 +85,7 @@ public class BrandController {
 
 		Optional<Brand> currentBrand = service.finbyId(id);
 
-		if (currentBrand.isEmpty()) {
+		if (!currentBrand.isPresent()) {
 			return ResponseEntity.notFound().build();
 		}
 
@@ -120,7 +120,7 @@ public class BrandController {
 
 		Optional<Brand> currentBrand = service.finbyId(id);
 
-		if (currentBrand.isEmpty() || currentBrand.get().getPhoto() == null) {
+		if (!currentBrand.isPresent() || currentBrand.get().getPhoto() == null) {
 			return ResponseEntity.notFound().build();
 		}
 
@@ -149,7 +149,7 @@ public class BrandController {
 
 		Optional<Brand> currentBrand = service.finbyId(id);
 
-		if (currentBrand.isEmpty()) {
+		if (!currentBrand.isPresent()) {
 			return ResponseEntity.notFound().build();
 		}
 
@@ -176,7 +176,7 @@ public class BrandController {
 		// Se busca la Marca
 		Optional<Brand> currentBrand = service.finbyId(id);
 
-		if (currentBrand.isEmpty()) {
+		if (!currentBrand.isPresent()) {
 			return ResponseEntity.notFound().build();
 		}
 

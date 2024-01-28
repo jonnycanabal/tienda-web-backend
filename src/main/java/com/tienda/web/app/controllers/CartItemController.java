@@ -36,7 +36,7 @@ public class CartItemController {
 
 		Optional<CartItem> currentCartItem = service.finById(id);
 
-		if (currentCartItem.isEmpty()) {
+		if (!currentCartItem.isPresent()) {
 			return ResponseEntity.notFound().build();
 		}
 
@@ -56,7 +56,7 @@ public class CartItemController {
 
 		Optional<CartItem> currentCartItem = service.finById(id);
 
-		if (currentCartItem.isEmpty()) {
+		if (!currentCartItem.isPresent()) {
 			return ResponseEntity.notFound().build();
 		}
 

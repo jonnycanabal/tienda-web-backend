@@ -19,13 +19,7 @@ public class RoleServiceImplement implements RoleService {
 
 		return repository.findAll();
 	}
-
-	//@Override
-	//public Optional<Role> finById(Long id) {
-
-	//	return repository.findById(id);
-	//}
-
+	
 	public Optional<Role> findByName(String name) {
 		
 		return repository.findByName(name);
@@ -41,6 +35,12 @@ public class RoleServiceImplement implements RoleService {
 	public void delateById(Long id) {
 
 		repository.deleteById(id);
+	}
+
+	@Override
+	public Optional<Role> findById(Long id) {
+
+		return repository.findById(id);
 	}
 
 }

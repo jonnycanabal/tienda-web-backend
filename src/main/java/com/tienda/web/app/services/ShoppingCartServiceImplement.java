@@ -56,7 +56,7 @@ public class ShoppingCartServiceImplement implements ShoppingCartService {
 		Optional<ShoppingCart> currentShoppingCart = repository.findById(id);
 
 		// Verificamos que el carrito exista
-		if (currentShoppingCart.isEmpty()) {
+		if (!currentShoppingCart.isPresent()) {
 			return new byte[0];
 		}
 

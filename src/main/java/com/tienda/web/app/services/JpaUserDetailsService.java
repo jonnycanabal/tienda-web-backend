@@ -28,11 +28,11 @@ public class JpaUserDetailsService implements UserDetailsService{
 		Optional<User> userOptional = repository.findByUsername(username);
 		
 		//Si el usuario esta vacio, lanza este mensaje 
-		if(userOptional.isEmpty()) {
+		if(!userOptional.isPresent()) {
 			throw new UsernameNotFoundException(String.format("username %s no existe en el sistema", username));
 		}
 		
-		User user = userOptional.orElseThrow();
+		User user = userOptional.orElseThrow(()-> new UsernameNotFoundException("username %s no existe en el sistema"));
 		
 		
 		List<GrantedAuthority> authorities = user.getRoles().stream()

@@ -62,7 +62,7 @@ public class ProductController {
 
 		Optional<Product> currentProduct = service.finById(id);
 
-		if (currentProduct.isEmpty()) {
+		if (!currentProduct.isPresent()) {
 			
 			//return ResponseEntity.notFound().build();
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("El producto no Existe");
@@ -84,7 +84,7 @@ public class ProductController {
 
 		Optional<Product> currentProduct = service.finById(id);
 
-		if (currentProduct.isEmpty()) {
+		if (!currentProduct.isPresent()) {
 			return ResponseEntity.notFound().build();
 		}
 
@@ -121,7 +121,7 @@ public class ProductController {
 
 		Optional<Product> currentProduct = service.finById(id);
 
-		if (currentProduct.isEmpty() || currentProduct.get().getPhoto() == null) {
+		if (!currentProduct.isPresent() || currentProduct.get().getPhoto() == null) {
 			return ResponseEntity.notFound().build();
 		}
 
@@ -147,7 +147,7 @@ public class ProductController {
 
 		Optional<Product> currentProduct = service.finById(id);
 
-		if (currentProduct.isEmpty()) {
+		if (!currentProduct.isPresent()) {
 			return ResponseEntity.notFound().build();
 		}
 

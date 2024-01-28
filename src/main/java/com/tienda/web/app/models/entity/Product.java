@@ -57,7 +57,7 @@ public class Product {
 	}
 
 	@Lob
-	@Column(columnDefinition = "LONGBLOB")
+//	@Column(columnDefinition = "LONGBLOB")
 	@JsonIgnore
 	public byte[] photo;
 

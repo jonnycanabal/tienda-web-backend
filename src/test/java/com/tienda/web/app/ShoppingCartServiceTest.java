@@ -3,9 +3,8 @@ package com.tienda.web.app;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
 
-import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +16,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.TestPropertySource;
 
 import com.tienda.web.app.models.entity.ShoppingCart;
 import com.tienda.web.app.models.repository.ShoppingCartRepository;
@@ -24,6 +24,7 @@ import com.tienda.web.app.services.ShoppingCartServiceImplement;
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
+@TestPropertySource(locations = "classpath:application-test.properties")
 public class ShoppingCartServiceTest {
 	
 	@Mock
@@ -46,7 +47,7 @@ public class ShoppingCartServiceTest {
 	@Test
 	public void testFinAll() {
 		
-		List<ShoppingCart> cartList = List.of(shoppingCart);
+		List<ShoppingCart> cartList = Arrays.asList(shoppingCart);
 		
 		Mockito.when(repository.findAll()).thenReturn(cartList);
 		
