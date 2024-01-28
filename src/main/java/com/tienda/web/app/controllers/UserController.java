@@ -77,7 +77,7 @@ public class UserController {
 
 		Optional<User> currentUser = service.findById(id);
 
-		if (currentUser.isEmpty()) {
+		if (!currentUser.isPresent()) {
 			
 			//return ResponseEntity.notFound().build();
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("El usuario no Existe");
@@ -148,7 +148,7 @@ public class UserController {
 		// Se busca el usuario
 		Optional<User> currentUser = service.findById(id);
 
-		if (currentUser.isEmpty()) {
+		if (!currentUser.isPresent()) {
 			return ResponseEntity.notFound().build();
 		}
 
@@ -207,7 +207,7 @@ public class UserController {
 
 		Optional<User> currentUser = service.findById(id);
 		
-		if(currentUser.isEmpty()) {
+		if(!currentUser.isPresent()) {
 			return ResponseEntity.notFound().build();
 		}
 		

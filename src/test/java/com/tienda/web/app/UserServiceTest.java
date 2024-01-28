@@ -1,19 +1,16 @@
 package com.tienda.web.app;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
-
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
@@ -21,6 +18,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 //import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.test.context.TestPropertySource;
 
 import com.tienda.web.app.models.entity.Role;
 import com.tienda.web.app.models.entity.User;
@@ -30,6 +28,7 @@ import com.tienda.web.app.services.UserServiceImplement;
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
+@TestPropertySource(locations = "classpath:application-test.properties")
 //@DataJpaTest
 public class UserServiceTest {
 	
@@ -47,6 +46,8 @@ public class UserServiceTest {
 	
 	private User user;
     private Role userRole;
+
+	private Role adminRole;
 	
 	@BeforeEach
 	public void testUser() {
@@ -66,6 +67,9 @@ public class UserServiceTest {
 		
 		userRole = new Role();
 		userRole.setName("ROLE_USER");
+
+		adminRole = new Role();
+		adminRole.setName("ROLE_ADMIN");
 		
 	}
 	
@@ -95,7 +99,7 @@ public class UserServiceTest {
 		Optional<User> response = service.findById(1L);
 		
 		// Verifica si el optional devuelto del service contiene un valor
-		assertTrue(response.isPresent());
+		Assertions.assertTrue(response.isPresent());
 		
 		// Verifica que le id del usuario en el optional sea igual al id del user
 		assertEquals(user.getId(), response.get().getId());
@@ -106,7 +110,7 @@ public class UserServiceTest {
 		
 		// Configuracion del mock Rolrepository, esto simula la busqueda de un rol por nombre en la BD
 		Mockito.when(rolRepository.findByName("ROLE_USER")).thenReturn(Optional.of(userRole));
-		
+
 		// Simulacion del proceso de codigicacion de la contraseña
 		Mockito.when(passwordEncoder.encode("12345")).thenReturn("encodedPassword");
 		
@@ -117,13 +121,13 @@ public class UserServiceTest {
 		User result = service.save(user);
 		
 		// Verificar que no sea nulo
-		assertNotNull(result);
+		Assertions.assertNotNull(result);
 		
 		// Verificar que la contraseña sea la esperada
 		assertEquals("encodedPassword", result.getPassword());
 		
 		// verificar que el resultado no sea administrador, es decir retorna un false
-		assertFalse(result.isAdmin());
+		Assertions.assertFalse(result.isAdmin());
 	}
 	
 	@Test
@@ -148,14 +152,14 @@ public class UserServiceTest {
 		// Configurar el comportamiento del mock del Repository a probar, 
 		// este retorna una lista que contiene un objeto user
 		Mockito.when(userRepository.findByFirtsNameContainingIgnoreCaseOrMiddleNameIgnoreCaseOrLastNameIgnoreCaseOrSeconLastNameIgnoreCase(
-				Mockito.anyString(), Mockito.anyString(), Mockito.anyString(), Mockito.anyString())).thenReturn(List.of(user));
+				Mockito.anyString(), Mockito.anyString(), Mockito.anyString(), Mockito.anyString())).thenReturn(Arrays.asList(user));
 		
 		//Se llama al metodo del service con unos valores especificios para probar
 		List<User> response = service.findByFirtsNameContainingIgnoreCaseOrMiddleNameIgnoreCaseOrLastNameIgnoreCaseOrSeconLastNameIgnoreCase(
 				"Diego", "", "Briñez", "");
 		
 		// Verificar que el response o la lista anterior no sea nula
-		assertNotNull(response);
+		Assertions.assertNotNull(response);
 		
 		// Verificas que la respuseta contenga exactamente 1 elemento
 		assertEquals(1, response.size());

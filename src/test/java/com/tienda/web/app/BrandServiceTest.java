@@ -4,9 +4,11 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.util.Arrays;
+//import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
+//import java.util.Set;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -16,6 +18,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.TestPropertySource;
 
 import com.tienda.web.app.models.entity.Brand;
 import com.tienda.web.app.models.repository.BrandRepository;
@@ -25,6 +28,7 @@ import com.tienda.web.app.services.BrandServiceImplement;
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
+@TestPropertySource(locations = "classpath:application-test.properties")
 public class BrandServiceTest {
 	
 	@Mock
@@ -48,7 +52,10 @@ public class BrandServiceTest {
 	@Test
 	public void testFinAll() {
 		
-		Set<Brand> brandList = Set.of(brand);
+		//Set<Brand> brandList = Set.of(brand);
+		//Set<Brand> brandList = new HashSet<>(Arrays.asList(brand));
+		List<Brand> brandList = Arrays.asList(brand);
+		
 		
 		Mockito.when(repository.findAll()).thenReturn(brandList);
 		
@@ -95,7 +102,7 @@ public class BrandServiceTest {
 	@Test
 	public void testFindByName() {
 		
-		Mockito.when(repository.findByBrandNameContainingIgnoreCase(Mockito.anyString())).thenReturn(List.of(brand));
+		Mockito.when(repository.findByBrandNameContainingIgnoreCase(Mockito.anyString())).thenReturn(Arrays.asList(brand));
 		
 		List<Brand> brandList = service.findByBrandNameContainingIgnoreCase("Adidas");
 		

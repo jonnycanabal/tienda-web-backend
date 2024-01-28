@@ -43,7 +43,7 @@ public class ShoppingCartController {
 
 		Optional<ShoppingCart> currentShoppingCart = service.finById(id);
 
-		if (currentShoppingCart.isEmpty()) {
+		if (!currentShoppingCart.isPresent()) {
 			
 			//return ResponseEntity.notFound().build();
 			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("El carrito no Existe");
@@ -71,7 +71,7 @@ public class ShoppingCartController {
 
 		Optional<ShoppingCart> currentShoppingCart = service.finById(id);
 
-		if (currentShoppingCart.isEmpty()) {
+		if (!currentShoppingCart.isPresent()) {
 			return ResponseEntity.notFound().build();
 		}
 
@@ -118,7 +118,7 @@ public class ShoppingCartController {
 
 		Optional<ShoppingCart> currentShoppingCart = service.finById(id);
 
-		if (currentShoppingCart.isEmpty()) {
+		if (!currentShoppingCart.isPresent()) {
 			return ResponseEntity.notFound().build();
 		}
 
@@ -142,7 +142,7 @@ public class ShoppingCartController {
 
 		Optional<ShoppingCart> currentShoppingCart = service.finById(id);
 
-		if (currentShoppingCart.isEmpty()) {
+		if (!currentShoppingCart.isPresent()) {
 			return ResponseEntity.notFound().build();
 		}
 

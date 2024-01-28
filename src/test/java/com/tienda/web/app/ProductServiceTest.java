@@ -16,6 +16,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.TestPropertySource;
 
 import com.tienda.web.app.models.entity.Product;
 import com.tienda.web.app.models.repository.ProductRepository;
@@ -23,6 +24,7 @@ import com.tienda.web.app.services.ProductServiceImplement;
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
+@TestPropertySource(locations = "classpath:application-test.properties")
 public class ProductServiceTest {
 	
 	@Mock
@@ -91,7 +93,7 @@ public class ProductServiceTest {
 	@Test
 	public void testFindByProductName() {
 		
-		Mockito.when(repository.findByProductNameContainingIgnoreCase(Mockito.anyString())).thenReturn(List.of(product));
+		Mockito.when(repository.findByProductNameContainingIgnoreCase(Mockito.anyString())).thenReturn(Arrays.asList(product));
 		
 		List<Product> response = service.findByProductNameContainingIgnoreCase("AllStar");
 		
