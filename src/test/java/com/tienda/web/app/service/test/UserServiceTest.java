@@ -1,21 +1,17 @@
-package com.tienda.web.app;
+package com.tienda.web.app.service.test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
+import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
-//import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.context.TestPropertySource;
@@ -128,6 +124,31 @@ public class UserServiceTest {
 		
 		// verificar que el resultado no sea administrador, es decir retorna un false
 		Assertions.assertFalse(result.isAdmin());
+
+	}
+
+	@Test
+	public void saveUserTest2(){
+
+		Mockito.when(userRepository.save(Mockito.any(User.class))).thenReturn(user);
+
+		// Simulacion del proceso de codigicacion de la contraseña
+		Mockito.when(passwordEncoder.encode("12345")).thenReturn("encodedPassword");
+
+		// Configuración del mock RolRepository
+		//operador ternario (? :) para determinar qué rol asignar dependiendo del valor de user.isAdmin()
+		Optional<Role> expectedRole = user.isAdmin() ? Optional.of(adminRole) : Optional.of(userRole);
+		Mockito.when(rolRepository.findByName(Mockito.anyString())).thenReturn(expectedRole);
+
+		User result = service.save(user);
+
+		System.out.println("Los roles asignados fueron" + result.getRoles());
+
+		Assertions.assertNotNull(result);
+
+		// Verificar que la contraseña sea la esperada
+		assertEquals("encodedPassword", result.getPassword());
+
 	}
 	
 	@Test

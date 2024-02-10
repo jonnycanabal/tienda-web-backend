@@ -64,7 +64,7 @@ public class UserServiceImplement implements UserService {
 			
 			Optional<Role> optionalRoleAdmin = roleRepository.findByName("ROLE_ADMIN");
 			
-			roles.clear();
+//			roles.clear();
 			
 			optionalRoleAdmin.ifPresent(roles::add);
 		}

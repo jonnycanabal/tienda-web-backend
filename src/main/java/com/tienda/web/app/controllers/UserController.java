@@ -203,20 +203,20 @@ public class UserController {
 	}
 
 	@DeleteMapping("/eliminar/{id}")
-	public ResponseEntity<?> delate(@PathVariable Long id) {
+	public ResponseEntity<?> delete(@PathVariable Long id) {
 
 		Optional<User> currentUser = service.findById(id);
-		
+
 		if(!currentUser.isPresent()) {
 			return ResponseEntity.notFound().build();
 		}
-		
+
 		//Elimina el carrito para romper la relacion
-		
+
 		if(currentUser.get().getShoppingCart() != null) {
 			// Obtener el ID del carrito asociado al usuario
 			Long idShoppingCart = currentUser.get().getShoppingCart().getId();
-			
+
 			try {
 				shoppingCartRepository.deleteById(idShoppingCart);
 			} catch (EmptyResultDataAccessException  e) {
@@ -224,7 +224,7 @@ public class UserController {
 				System.out.println("El carrito de compras con ID " + idShoppingCart + " no existe!");
 			}
 		}
-		
+
 		try {
 			//Elimina el Usuario
 			service.deleteById(id);
@@ -232,7 +232,7 @@ public class UserController {
 		} catch (EntityNotFoundException e) {
 			return ResponseEntity.ok().body("El usuario " + currentUser.get().getFirtsName() + " Se elimino correctamente!");
 		}
-		
+
 	}
 
 }

@@ -8,16 +8,16 @@ import java.lang.annotation.Target;
 import javax.validation.Constraint;
 import javax.validation.Payload;
 
-@Constraint(validatedBy = ExistsByUsernameValidation.class)
-@Target(ElementType.FIELD)
-@Retention(RetentionPolicy.RUNTIME)
+@Constraint(validatedBy = ExistsByUsernameValidation.class) //Logica real se implementa en la clase señalada
+@Target(ElementType.FIELD) //Solo se aplica a campos
+@Retention(RetentionPolicy.RUNTIME) //Estara en tiempo de ejecucion
 public @interface ExistsByUsername {
 	
 	//Se da control click en la anotacion NotBlank de User y se copia estas lineas de codigo
-	String message() default " Ya existe en la base de datos!, escoja otro username";
+	String message() default " Ya existe en la base de datos!, escoja otro username"; //Mensaje Predeterminado
 
-	Class<?>[] groups() default { };
+	Class<?>[] groups() default { }; //Define grupos de validacion
 
-	Class<? extends Payload>[] payload() default { };
+	Class<? extends Payload>[] payload() default { }; //Informacion adicional
 
 }

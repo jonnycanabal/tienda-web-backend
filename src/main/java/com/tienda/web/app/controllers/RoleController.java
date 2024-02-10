@@ -33,7 +33,7 @@ public class RoleController {
 		return ResponseEntity.ok().body(service.finAll());
 	}
 	
-	@PostMapping("/ver/{id}")
+	@GetMapping("/ver/{id}")
 	public ResponseEntity<?> view(@PathVariable Long id){
 		
 		Optional<Role> currentRole = service.findById(id);

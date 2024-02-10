@@ -103,7 +103,7 @@ public class ProductController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(uptatedProduct);
 	}
 
-	@DeleteMapping("/elimiar/{id}")
+	@DeleteMapping("/eliminar/{id}")
 	public ResponseEntity<?> delate(@PathVariable Long id) {
 
 		service.deleteById(id);

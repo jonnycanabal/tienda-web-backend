@@ -24,8 +24,8 @@ import org.springframework.web.filter.CorsFilter;
 import com.tienda.web.app.springboot.security.filter.JwtAuthenticationFilter;
 import com.tienda.web.app.springboot.security.filter.JwtValidationFilter;
 
-@Configuration
-@EnableWebSecurity
+@Configuration //Configuracion de Spring Boot
+@EnableWebSecurity //Se encuentra habilitada
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	@Autowired //lo inyectamos por que es un componente de spring security
@@ -33,6 +33,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	//metodo
 	@Bean
+	//Necesario para la autenticacion, tener en cuenta el AuthenticationConfiguration
 	protected AuthenticationManager authenticationManager() throws Exception {
 		return authenticationConfiguration.getAuthenticationManager();
 	}
@@ -41,10 +42,13 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 	PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
-	
+
+	//Metodo que configura la seguridad de las solicitudes HTTP,
+	// restricciones basadas en ROLES y sus metodos HTTP
 	@Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests(requests -> requests
+				.antMatchers("/**").permitAll()//Linea para el test sin seguridad
                 .antMatchers("/h2-console/**", "/usuario", "/usuario/crear", "/marca/buscar", "/usuario/crear/admin",
                 		"/role", "/role/buscar", "/role/ver/{id}", "/role/crear").permitAll()
                 .antMatchers(HttpMethod.GET, "/usuario", "/usuario/ver/{id}", "/usuario/buscar").hasAnyRole("USER", "ADMIN")
@@ -77,8 +81,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.DELETE, "/itemcarrito/eliminar/{id}").hasRole("ADMIN")
                 //
                 .anyRequest().authenticated())
+				//Filtros personalizados para manejar Autenticacion basada en JWT
                 .addFilter(new JwtAuthenticationFilter(authenticationManager()))
                 .addFilter(new JwtValidationFilter(authenticationManager()))
+				//Se desabilita CSRF seguridad en vistas para el manejo de H2-console
                 .csrf(csrf -> {
                     try {
                         csrf.disable() //seguridad para las vitas
@@ -87,10 +93,13 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                         e.printStackTrace();
                     }
                 })
+				//Configuracion Cors para manejo de aplicacion como angular etc en tramision de datos
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
-                //la sesion se va enviar en el tockent por algunos datos para que se pueda autenticar. en esta caso se deja sin estado.
+                //la sesion se va enviar en el tockent con algunos datos para que se pueda autenticar.
+				// en esta caso se deja sin estado.
                 .sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .exceptionHandling(handling -> handling.accessDeniedHandler(new CustomAccessDeniedHandler())); 
+                //Configura el manejo de excepciones de forma personalizada como el "acceso denegado"
+				.exceptionHandling(handling -> handling.accessDeniedHandler(new CustomAccessDeniedHandler()));
     }
 	
 	//Configuracion del Cors para el manejo de aplicacion como angular, aplicacion moviles Etc (Transmision de datos)

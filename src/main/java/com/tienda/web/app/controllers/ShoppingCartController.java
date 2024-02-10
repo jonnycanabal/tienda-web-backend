@@ -113,8 +113,8 @@ public class ShoppingCartController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(updatedShoppingCart);
 	}
 
-	@DeleteMapping("eliminar/{id}")
-	public ResponseEntity<?> delate(@PathVariable Long id) {
+	@DeleteMapping("/eliminar/{id}")
+	public ResponseEntity<?> delete(@PathVariable Long id) {
 
 		Optional<ShoppingCart> currentShoppingCart = service.finById(id);
 
