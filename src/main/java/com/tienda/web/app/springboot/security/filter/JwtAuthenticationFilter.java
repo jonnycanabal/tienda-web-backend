@@ -36,7 +36,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
 	// Se debe implementar el contructor para pasar un atributo
 
-	// atributo
+	// atributo utilizado para autenticar usuarios
 	private AuthenticationManager authenticationManager;
 
 	// se pasa por medio del contructor / este se encarga de autenticar los usuarios
@@ -45,8 +45,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		this.authenticationManager = authenticationManager;
 	}
 
-	// Metodo de autenticacion, attemptAuthentication se llama cuando para
-	// autenticar un usuario, lee el user desde el cuerpo de la solicitud
+	//Metodo que se ejecuta cuando se intenta autenticar un usuario, extrae la informacion del usuario
+	//
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
 			throws AuthenticationException {
@@ -80,22 +80,25 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
 	}
 
-	// se va a sobreescribir el metodo successfulAuthentication - si es valida la
-	// autenticacion
+	//Se va a sobreescribir el metodo successfulAuthentication
+	//Se ejecuta si la autenticacion es exitosa, obtiene el usuario y roles del objeto authentication
+	//Devuelte tambien un JSON con informacion adicional como el token y un mensaje de saludo
 	@Override
 	protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain,
 			Authentication authResult) throws IOException, ServletException {
 
-		// Se obtiene el User de spring security
+		// Se obtiene el User de spring security - representa el usuario autenticado
 		org.springframework.security.core.userdetails.User user = (org.springframework.security.core.userdetails.User) authResult
 				.getPrincipal();
 
-		// Aqui se obtiene el username
+		// Aqui se extrae el username
 		String username = user.getUsername();
 
+		//Se optiones los roles del usuario (Authorities)
 		Collection<? extends GrantedAuthority> roles = authResult.getAuthorities();
 
 		// Claims son datos
+		//Se crean los claims que se incluiran en el token JWT en este caso los roles y username
 //		Claims claims = Jwts.claims().add("authorities", new ObjectMapper().writeValueAsString(roles))
 //				.add("username", username).build();
 		
@@ -106,6 +109,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
 		// Aqui generamos el "TOKEN"
 		 // usuario - el subject es un claim por defecto y es obligatorio para el username
+		//Se contruye el token con informacion previamente configurada, usuario, claims y otros detalles
+		//como fecha, tiempo de expiracion y la firma.
 		String token = Jwts.builder()
 				.subject(username)
 				.claims(claims)
@@ -118,6 +123,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		// Bearer es un estandar del tipo de dato JWT
 		response.addHeader(HEADER_AUTHORIZATION, PREFIX_TOKEN + token);
 
+		//Se crea un mapa que contiene informacion adicional para ser devuelta en formato JSON
 		Map<String, String> body = new HashMap<>();
 		body.put("token", token);
 		body.put("username", username);
@@ -130,22 +136,24 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		response.setStatus(200);
 	}
 
-	// se va a sobreescribir el metodo unsuccessfulAuthentication - si no es valida
-	// la autenticacion
+	// se va a sobreescribir el metodo unsuccessfulAuthentication - si no es valida la autenticacion
 	@Override
 	protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException failed) throws IOException, ServletException {
 
+		//Se crea un Mapa (boby) para almacenar la informacion
 		Map<String, String> body = new HashMap<>();
 
+		//Se agrega al Map un mensaje de error indicando que hubo un problema y el error especifico
 		// buena practica, no decir en que esta mal por temas de seguridad
 		body.put("message", "Error en la autenticacion usuario o contraseña incorrectos!");
 		body.put("error", failed.getMessage());
 
+		//Se escribe el cuerpo de la respuesta JSON
+		//Se utiliza el objeto ObjectMapper para convertir el map(body) en una cadena JSON
 		response.getWriter().write(new ObjectMapper().writeValueAsString(body));
 		response.setStatus(401); // no esta autorizados
-		response.setContentType(CONTENT_TYPE);
-
+		response.setContentType(CONTENT_TYPE);//Se establece el tipo de contenido en la respuesta application/json
 	}
 
 }

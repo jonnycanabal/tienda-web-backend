@@ -1,4 +1,4 @@
-package com.tienda.web.app;
+package com.tienda.web.app.service.test;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;

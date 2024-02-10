@@ -57,7 +57,7 @@ public class User {
 	private String username;
 
 	@NotBlank
-	@JsonProperty(access = Access.WRITE_ONLY) //Solo muestra cuando se escribe o crea
+//	@JsonProperty(access = Access.WRITE_ONLY) //Solo muestra cuando se escribe o crea
 	private String password;
 
 	@JsonIgnoreProperties({"users"}) //de la lista de roles se ignora los usuarios, esto evita un bucle
